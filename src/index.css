@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Essential Global Styles ── */
+@layer base {
+  body {
+    @apply bg-background text-on-background antialiased min-h-screen;
+  }
+}
+
+/* ── Brand Specific Styles (Not easily done with pure Tailwind) ── */
+@layer components {
+
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #F5C97A 0%, #C47A2C 50%, #A3621E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ── Custom Scrollbar (Browsers require CSS for this) ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #EADBC8;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #C47A2C;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4943A;
+}
+
+/* ── Utilities ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
