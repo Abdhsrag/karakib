@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import CheckoutModal from './CheckoutModal';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/CartContext'
+import logo from '../assets/images/karakeb_logo2.png';
 
 const menuItems = [
   { icon: 'home', label: 'الرئيسية', path: '/' },
@@ -263,7 +264,7 @@ export default function Header() {
             className="flex-shrink-0 cursor-pointer transition-transform hover:scale-105"
           >
             <img
-              src="/src/assets/images/karakeb_logo2.png"
+              src={logo}
               alt="كراكيب"
               className="h-8 md:h-12 w-auto object-contain"
               style={{ mixBlendMode: 'multiply' }}

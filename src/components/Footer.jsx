@@ -12,6 +12,7 @@ const socials = [
 ]
 
 import { useNavigate } from 'react-router-dom'
+import logo from '../assets/images/karakeb_logo2.png'
 
 export default function Footer() {
   const navigate = useNavigate()
@@ -35,7 +36,7 @@ export default function Footer() {
           >
             <div className="bg-white p-2 rounded-xl shadow-lg">
               <img
-                src="/src/assets/images/karakeb_logo2.png"
+                src={logo}
                 alt="كراكيب"
                 className="h-8 md:h-10 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}

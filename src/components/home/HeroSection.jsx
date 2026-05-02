@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import headerImage from '../assets/images/karakeb_header.jpg';
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function HeroSection() {
             <img
               alt="Elegant luxury boutique interior"
               className="w-full h-full object-cover object-center transition-transform duration-[20s] ease-out group-hover:scale-110"
-              src="/src/assets/images/karakeb_header.jpg"
+              src={headerImage}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             
