@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import headerImage from '../assets/images/karakeb_header.jpg';
+import headerImage from '../../assets/images/karakeb_header.jpg';
 
 export default function HeroSection() {
   const navigate = useNavigate();
