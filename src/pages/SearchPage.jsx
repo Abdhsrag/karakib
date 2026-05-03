@@ -12,54 +12,76 @@ export default function SearchPage() {
   const { addToCart } = useCart()
 
   return (
-    <div className="text-on-background font-body-rg text-body-rg min-h-screen flex flex-col antialiased">
+    <div className="bg-white min-h-screen flex flex-col antialiased">
       <Header />
 
       <main className="flex-1 flex flex-col">
-        <div className="p-gutter md:p-xl flex-1 max-w-container-max mx-auto w-full">
+        <div className="py-24 px-5 max-w-7xl mx-auto w-full">
 
-          <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
-            <h1 className="text-5xl md:text-7xl font-black text-on-background mb-6 leading-tight">
-              نتائج البحث
+          <div className="max-w-4xl mx-auto text-center mb-20 space-y-4">
+             <div className="flex items-center justify-center gap-3">
+                <span className="w-12 h-[2px] bg-primary rounded-full" />
+                <span className="font-bold text-primary text-sm uppercase tracking-widest">نتائج البحث / Search Results</span>
+                <span className="w-12 h-[2px] bg-primary rounded-full" />
+             </div>
+            
+            <h1 className="font-heading text-4xl md:text-6xl font-black text-on-background leading-tight">
+              {query ? (
+                <>
+                  اكتشف: <span className="text-primary italic">&quot;{query}&quot;</span>
+                </>
+              ) : (
+                "ابدأ البحث"
+              )}
             </h1>
-            {query && (
-              <p className="text-xl md:text-2xl leading-relaxed text-on-background/70">
-                نتائج البحث عن: <span className="text-primary font-black">&quot;{query}&quot;</span>
-                {!loading && (
-                  <span className="mr-3 text-on-background/40">
-                    ({products.length} منتج)
-                  </span>
-                )}
+            
+            {query && !loading && (
+              <p className="text-on-background/40 font-bold uppercase tracking-widest text-xs">
+                تم العثور على {products.length} قطعة فريدة / Found {products.length} unique pieces
               </p>
             )}
           </div>
 
           {/* Products Grid */}
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-32 gap-6 text-on-background/60">
-              <span className="animate-spin inline-block w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full" />
-              <p className="text-xl font-bold">جاري البحث في عالم كراكيب...</p>
+            <div className="flex flex-col items-center justify-center py-32 gap-6 text-primary">
+              <span className="animate-spin inline-block w-16 h-16 border-4 border-primary/10 border-t-primary rounded-full" />
+              <div className="text-center">
+                <p className="text-xl font-bold">جاري البحث في عالم كراكيب...</p>
+                <p className="text-xs uppercase tracking-widest opacity-40 mt-1">Searching through Karakeb collections...</p>
+              </div>
             </div>
           ) : error ? (
-            <div className="text-center py-12 text-error font-title-sm">{error}</div>
+            <div className="text-center py-20">
+               <div className="bg-error/10 text-error px-6 py-4 rounded-2xl inline-block font-bold">
+                  {error}
+               </div>
+            </div>
           ) : !query ? (
             <div className="text-center py-32 flex flex-col items-center">
-              <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-5xl text-primary">search</span>
+              <div className="w-32 h-32 rounded-[2.5rem] bg-primary/5 flex items-center justify-center mb-8 border border-primary/10">
+                <span className="material-symbols-outlined text-6xl text-primary">search</span>
               </div>
-              <p className="text-2xl font-bold text-on-background/60">أدخل كلمة في خانة البحث للبدء بالاكتشاف</p>
+              <h2 className="text-2xl font-black text-on-background mb-2">أدخل كلمة للبحث</h2>
+              <p className="text-on-background/40 text-sm">استخدم شريط البحث في الأعلى لاستكشاف مجموعاتنا.</p>
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-32 flex flex-col items-center">
-              <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-5xl text-primary">search_off</span>
+              <div className="w-32 h-32 rounded-[2.5rem] bg-surface-container flex items-center justify-center mb-8">
+                <span className="material-symbols-outlined text-6xl text-on-background/20">search_off</span>
               </div>
-              <p className="text-2xl font-bold text-on-background/60">
-                لم يتم العثور على نتائج تطابق &quot;{query}&quot;
-              </p>
+              <h2 className="text-2xl font-black text-on-background mb-2">عذراً، لم نجد ما تبحث عنه</h2>
+              <p className="text-on-background/40 text-sm italic">&quot;No results found for your search query&quot;</p>
+              <button 
+                onClick={() => window.history.back()}
+                className="mt-8 text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                <span className="material-symbols-outlined">arrow_back</span>
+                العودة للخلف / Go Back
+              </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 animate-fade-in">
               {products.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -74,6 +96,17 @@ export default function SearchPage() {
       </main>
 
       <Footer />
+      
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+      `}</style>
     </div>
   )
 }
+

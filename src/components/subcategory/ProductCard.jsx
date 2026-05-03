@@ -1,10 +1,8 @@
-// components/ProductCard.jsx
 import { useState } from 'react'
-import ProductDetailModal from '../ProductDetailModal'
-
+import ProductDrawer from '../ProductDrawer'
 
 export default function ProductCard({ product, onAddToCart, onAddToFavorites }) {
-  const [showModal, setShowModal] = useState(false)
+  const [showDrawer, setShowDrawer] = useState(false)
   const [isFavorited, setIsFavorited] = useState(product.isFavorited || false)
 
   const handleFavoriteClick = (e) => {
@@ -17,7 +15,7 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
   }
 
   const handleCardClick = () => {
-    setShowModal(true)
+    setShowDrawer(true)
   }
 
   return (
@@ -28,7 +26,7 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
       >
         {/* Image Container */}
         <div
-          className="relative w-full aspect-[4/5] overflow-hidden transition-all duration-700 ease-out group-hover:-translate-y-2 rounded-[24px] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] border border-surface-container/50 mb-4"
+          className="relative w-full aspect-[4/5] overflow-hidden transition-all duration-700 ease-out group-hover:-translate-y-2 rounded-[32px] bg-surface-container border border-surface-container-highest/20 mb-4"
         >
           <img
             alt={product.title}
@@ -37,68 +35,60 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
             loading="lazy"
           />
 
-          {/* Subtle overlay for depth */}
-          <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-             <div className="w-14 h-14 rounded-full bg-white/90 shadow-xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
-                <span className="material-symbols-outlined text-primary text-3xl">visibility</span>
+          {/* Premium Hover Overlay */}
+          <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+             <div className="w-16 h-16 rounded-full bg-white shadow-2xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                <span className="material-symbols-outlined text-primary text-3xl">add</span>
              </div>
           </div>
 
-          {/* Add to Cart Button */}
+          {/* Floating Actions */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart?.({ ...product, quantity: 1 });
             }}
-            className="absolute top-4 right-4 z-20 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md border border-white/40 flex items-center justify-center text-[#6B4F3A] shadow-lg transition-all duration-300 hover:bg-primary hover:text-white hover:scale-110 active:scale-95"
+            className="absolute top-5 right-5 z-20 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md border border-white/40 flex items-center justify-center text-primary shadow-xl transition-all duration-300 hover:bg-primary hover:text-white hover:scale-110 active:scale-95"
           >
             <span className="material-symbols-outlined text-2xl">
-              add_shopping_cart
+              shopping_basket
             </span>
           </button>
 
-          {/* New Tag using Secondary Sage Green */}
-          <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-secondary text-white text-xs font-black shadow-sm">
-            جديد
-          </div>
+          {product.isNew && (
+            <div className="absolute top-5 left-5 z-20 px-4 py-1.5 rounded-full bg-secondary text-white text-[10px] font-black shadow-lg uppercase tracking-widest">
+              جديد / New
+            </div>
+          )}
         </div>
 
         {/* Product Info */}
-        <div className="flex justify-between items-start p-4 bg-[#EADBC8]/30 rounded-b-[24px] -mt-4 pt-8 border border-t-0 border-surface-container/50">
-          <div className="flex-1 pr-3">
-            <h3 className="font-inherit text-lg font-bold text-[#6B4F3A] transition-colors duration-300 group-hover:text-primary leading-tight mb-1">
+        <div className="px-2">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="font-heading text-lg font-bold text-on-background transition-colors duration-300 group-hover:text-primary leading-tight line-clamp-1">
               {product.title}
             </h3>
-            <p className="font-inherit text-sm text-[#6B4F3A]/60 leading-relaxed line-clamp-2">
-              {product.description}
-            </p>
+            <span className="font-heading text-[10px] text-primary/40 font-bold uppercase tracking-widest">Premium</span>
           </div>
-          <div className="text-right">
-            <span className="font-inherit text-lg font-black text-primary whitespace-nowrap bg-white/50 px-3 py-1 rounded-full border border-primary/20">
+          
+          <div className="flex justify-between items-center">
+            <span className="font-heading text-xl font-black text-primary">
               {String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`}
             </span>
+            <div className="flex gap-1">
+               {[1,2,3,4,5].map(i => (
+                 <span key={i} className="material-symbols-outlined text-[10px] text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+               ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Product Detail Modal */}
-      {showModal && (
-        <ProductDetailModal
-          product={{
-            ...product,
-            isFavorited: isFavorited
-          }}
-          onClose={() => setShowModal(false)}
-          onAddToCart={(item) => {
-            onAddToCart?.(item)
-            setShowModal(false)
-          }}
-          onAddToFavorites={(item) => {
-            setIsFavorited(item.isFavorited)
-            onAddToFavorites?.(item)
-          }}
-        />
-      )}
+      <ProductDrawer
+        product={product}
+        isOpen={showDrawer}
+        onClose={() => setShowDrawer(false)}
+      />
     </>
   )
 }

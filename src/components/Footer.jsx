@@ -1,7 +1,7 @@
 const links = [
-  { label: 'الشروط والأحكام', href: '#' },
-  { label: 'سياسة الشحن', href: '#' },
-  { label: 'تواصل معنا', href: '#' },
+  { label: 'الشروط والأحكام', labelEn: 'Terms & Conditions', href: '#' },
+  { label: 'سياسة الشحن', labelEn: 'Shipping Policy', href: '#' },
+  { label: 'تواصل معنا', labelEn: 'Contact Us', href: '#' },
 ]
 
 const socials = [
@@ -17,98 +17,128 @@ import logo from '../assets/images/karakeb_logo2.png'
 export default function Footer() {
   const navigate = useNavigate()
   return (
-    <footer className="relative w-full pb-12 px-4 mt-20">
-      {/* Dark Glass Capsule Footer */}
-      <div className="max-w-[1000px] mx-auto relative group">
-        
-        {/* Subtle Ambient Glow */}
-        <div className="absolute -inset-1 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-        <div className="relative bg-[#6B4F3A]/90 backdrop-blur-2xl rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] h-20 md:h-24 px-8 md:px-12 flex items-center justify-between gap-4 overflow-hidden">
+    <footer className="relative w-full py-20 px-4 bg-primary text-white overflow-hidden mt-24">
+      {/* Decorative mashrabiya pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.03] bg-mashrabiya pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-16 lg:gap-8 mb-20">
           
-          {/* Decorative Texture Overlay */}
-          <div className="absolute inset-0 opacity-10 bg-mashrabiya pointer-events-none" />
-
-          {/* 1. Logo Section */}
-          <div 
-            onClick={() => navigate('/')}
-            className="flex items-center gap-3 cursor-pointer z-10 transition-transform hover:scale-105"
-          >
-            <div className="bg-white p-2 rounded-xl shadow-lg">
+          {/* Brand Column */}
+          <div className="lg:col-span-1 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-right">
+            <div 
+              onClick={() => navigate('/')}
+              className="bg-white p-4 rounded-[2rem] shadow-2xl cursor-pointer hover:scale-105 transition-transform"
+            >
               <img
                 src={logo}
                 alt="كراكيب"
-                className="h-8 md:h-10 w-auto object-contain"
+                className="h-16 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
               />
             </div>
-            <span className="hidden sm:block font-inherit text-xl font-black text-white tracking-widest">كراكيب</span>
+            <div className="space-y-1">
+              <h2 className="text-3xl font-black tracking-widest">كراكيب</h2>
+              <p className="text-[10px] uppercase tracking-[0.3em] opacity-50">Karakeb Luxury</p>
+            </div>
+            <p className="text-white/60 text-sm max-w-[250px] leading-relaxed">
+              عالم من الفخامة والأناقة في منزلك. قطع فنية مختارة بعناية لتلبي ذوقك الرفيع.
+            </p>
           </div>
 
-          {/* Vertical Divider (Smart Detail) */}
-          <div className="hidden md:block w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+          {/* Links Columns */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="flex flex-col items-center lg:items-start space-y-8">
+              <div className="space-y-1 text-center lg:text-right">
+                <h3 className="font-bold text-lg">روابط سريعة</h3>
+                <p className="text-[8px] uppercase tracking-widest opacity-40">Quick Links</p>
+              </div>
+              <nav className="flex flex-col gap-4 items-center lg:items-start">
+                {links.map((link) => (
+                  <button
+                    key={link.label}
+                    onClick={() => {
+                      if (link.label === 'الشروط والأحكام') navigate('/terms')
+                      else if (link.label === 'سياسة الشحن') navigate('/terms#shipping')
+                      else if (link.label === 'تواصل معنا') window.location.href = 'https://wa.me/201200025414'
+                    }}
+                    className="group flex flex-col items-center lg:items-start transition-all"
+                  >
+                    <span className="text-sm font-bold group-hover:text-secondary transition-colors">{link.label}</span>
+                    <span className="text-[9px] uppercase tracking-widest opacity-40 group-hover:opacity-100">{link.labelEn}</span>
+                  </button>
+                ))}
+              </nav>
+            </div>
 
-          {/* 2. Navigation (Compact & Smart) */}
-          <nav className="flex-1 flex items-center justify-center gap-6 md:gap-10 z-10">
-            {links.map((link) => (
-              <button
-                key={link.label}
-                onClick={() => {
-                  if (link.label === 'الشروط والأحكام') navigate('/terms')
-                  else if (link.label === 'سياسة الشحن') navigate('/terms#shipping')
-                  else if (link.label === 'تواصل معنا') window.location.href = 'https://wa.me/201200025414'
-                }}
-                className="font-inherit text-[13px] md:text-[14px] font-bold text-white/70 hover:text-primary transition-all duration-300 relative group/link"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
-              </button>
-            ))}
-          </nav>
+            <div className="flex flex-col items-center lg:items-start space-y-8">
+              <div className="space-y-1 text-center lg:text-right">
+                <h3 className="font-bold text-lg">تواصل معنا</h3>
+                <p className="text-[8px] uppercase tracking-widest opacity-40">Connect With Us</p>
+              </div>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${s.icon} w-14 h-14 flex items-center justify-center rounded-2xl text-xl text-white bg-white/5 border border-white/10 hover:bg-white hover:text-primary hover:scale-110 transition-all duration-500`}
+                  />
+                ))}
+              </div>
+              <div className="bg-white/5 border border-white/10 p-5 rounded-2xl w-full max-w-[280px]">
+                <div className="flex items-center gap-3 mb-2">
+                   <span className="material-symbols-outlined text-secondary">support_agent</span>
+                   <span className="text-sm font-bold">تحتاج مساعدة؟</span>
+                </div>
+                <p className="text-[11px] text-white/50">فريقنا متاح للرد على استفساراتكم عبر الواتساب على مدار الساعة.</p>
+              </div>
+            </div>
+          </div>
 
-          {/* Vertical Divider (Smart Detail) */}
-          <div className="hidden md:block w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-
-          {/* 3. Socials Section */}
-          <div className="flex items-center gap-2 md:gap-3 z-10">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${s.icon} w-10 h-10 flex items-center justify-center rounded-full text-base text-white bg-white/5 border border-white/10 hover:bg-primary hover:scale-110 transition-all duration-500`}
-              />
-            ))}
+          {/* Newsletter / Info Column */}
+          <div className="lg:col-span-1 flex flex-col items-center lg:items-start space-y-8">
+             <div className="space-y-1 text-center lg:text-right">
+                <h3 className="font-bold text-lg">الموقع</h3>
+                <p className="text-[8px] uppercase tracking-widest opacity-40">Location</p>
+              </div>
+              <div className="flex items-start gap-3 text-white/60">
+                <span className="material-symbols-outlined text-secondary">location_on</span>
+                <p className="text-sm leading-relaxed">
+                  القاهرة، جمهورية مصر العربية<br />
+                  Cairo, Egypt
+                </p>
+              </div>
+              <div className="w-full h-px bg-white/10" />
+              <div className="flex items-center gap-3 text-secondary">
+                 <span className="material-symbols-outlined">verified</span>
+                 <span className="text-xs font-black uppercase tracking-widest">Premium Quality Guaranteed</span>
+              </div>
           </div>
 
         </div>
 
-        {/* Premium Copyright & Developer Credit */}
-        <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-12 mt-8 text-[11px] font-inherit tracking-[0.15em] text-on-background/40 uppercase gap-4">
-          
-          <div className="flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-pulse" />
-            <span className="font-bold">© ٢٠٢٦ كراكيب. جميع الحقوق محفوظة</span>
+        {/* Bottom Bar */}
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 opacity-60">
+          <div className="flex items-center gap-3">
+             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 Karakeb Luxury | كراكيب</span>
           </div>
-
-          <div className="flex items-center gap-2 group/nova">
-            <span className="opacity-60">صنع بكل</span>
-            <span className="material-symbols-outlined text-[14px] text-red-400 animate-pulse">favorite</span>
-            <span className="opacity-60">بواسطة</span>
+          
+          <div className="flex items-center gap-2 group/nova text-[10px] font-bold uppercase tracking-widest">
+            <span>Made with</span>
+            <span className="material-symbols-outlined text-[14px] text-red-500 animate-pulse">favorite</span>
+            <span>by</span>
             <a 
               href="https://nova-4solutions.vercel.app" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-primary font-black hover:text-primary-hover transition-all duration-300 relative"
+              className="text-white hover:text-secondary transition-all"
             >
               Nova Solutions
-              <span className="absolute -bottom-0.5 left-0 w-full h-px bg-primary scale-x-0 group-hover/nova:scale-x-100 transition-transform origin-right" />
             </a>
           </div>
-
         </div>
-
       </div>
     </footer>
   )

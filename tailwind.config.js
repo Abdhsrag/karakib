@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Core brand — Amber Gold
-        "primary":                  "#C47A2C",
-        "primary-hover":            "#D4943A",
-        "primary-active":           "#A3621E",
-        "primary-container":        "#F5C97A", // Tint / light background
+        // Core brand — Premium Green
+        "primary":                  "#1B4332",
+        "primary-hover":            "#2D6A4F",
+        "primary-active":           "#081C15",
+        "primary-container":        "#D8F3DC", // Tint / light background
         "on-primary":               "#FFFFFF",
-        "on-primary-container":     "#7A4A15", // Dark
+        "on-primary-container":     "#081C15", // Dark
         // Accent — Sage Green
         "secondary":                "#A3B18A",
         "secondary-hover":          "#B8C99E",
@@ -21,21 +21,21 @@ export default {
         "secondary-container":      "#DDE6D0", // Tint / light background
         "on-secondary":             "#FFFFFF",
         "on-secondary-container":   "#5C6E45", // Dark
-        // Backgrounds — Cream Beige
-        "background":               "#EADBC8",
-        "on-background":            "#6B4F3A", // Deep brown text
-        "surface":                  "#EADBC8",
+        // Backgrounds — Clean White
+        "background":               "#FFFFFF",
+        "on-background":            "#1B4332", // Dark green text
+        "surface":                  "#FFFFFF",
         "surface-bright":           "#FFFFFF", // White for modals/popovers
-        "on-surface":               "#6B4F3A",
-        "surface-container":        "#EADBC8",
-        "surface-container-low":    "#EADBC8",
-        "surface-container-high":   "#EADBC8",
-        "surface-container-highest":"#EADBC8",
+        "on-surface":               "#1B4332",
+        "surface-container":        "#F8F9FA",
+        "surface-container-low":    "#FFFFFF",
+        "surface-container-high":   "#E9ECEF",
+        "surface-container-highest":"#DEE2E6",
         "surface-container-lowest": "#FFFFFF",
-        "surface-variant":          "#EADBC8",
-        "on-surface-variant":       "#6B4F3A",
+        "surface-variant":          "#F8F9FA",
+        "on-surface-variant":       "#495057",
         // Borders & outlines
-        "outline":                  "#6B4F3A",
+        "outline":                  "#1B4332",
         "outline-variant":          "#A3B18A",
         // Error
         "error":                    "#BA1A1A",
@@ -43,10 +43,10 @@ export default {
         "on-error":                 "#FFFFFF",
         "on-error-container":       "#410002",
         // Inverse
-        "inverse-surface":          "#6B4F3A",
-        "inverse-on-surface":       "#EADBC8",
-        "inverse-primary":          "#D4943A",
-        "surface-tint":             "#C47A2C"
+        "inverse-surface":          "#1B4332",
+        "inverse-on-surface":       "#FFFFFF",
+        "inverse-primary":          "#95D5B2",
+        "surface-tint":             "#1B4332"
       },
       borderRadius: {
         DEFAULT: "0.5rem",
@@ -70,13 +70,16 @@ export default {
         unit:            "4px"
       },
       fontFamily: {
-        // Arabic premium fonts
-        sans:          ["'Reem Kufi Fun'", "system-ui", "sans-serif"],
-        "display-lg":  ["'Reem Kufi Fun'", "sans-serif"],
-        "headline-md": ["'Reem Kufi Fun'", "sans-serif"],
-        "title-sm":    ["'Reem Kufi Fun'", "sans-serif"],
-        "body-rg":     ["'Reem Kufi Fun'", "sans-serif"],
-        "label-xs":    ["'Reem Kufi Fun'", "sans-serif"]
+        // Modern clean fonts
+        sans:          ["'Cairo'", "system-ui", "sans-serif"],
+        display:       ["'Cairo'", "sans-serif"],
+        heading:       ["'Cairo'", "sans-serif"],
+        body:          ["'Poppins'", "sans-serif"],
+        "display-lg":  ["'Cairo'", "sans-serif"],
+        "headline-md": ["'Cairo'", "sans-serif"],
+        "title-sm":    ["'Cairo'", "sans-serif"],
+        "body-rg":     ["'Poppins'", "sans-serif"],
+        "label-xs":    ["'Poppins'", "sans-serif"]
       },
       fontSize: {
         "display-lg":  ["3.25rem",  { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
