@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api-proxy/:path*",
+      "destination": "https://mustafa-badran.com/app2/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

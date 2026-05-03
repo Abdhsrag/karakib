@@ -110,13 +110,16 @@ export default function BestSellersSection() {
         spaceBetween={40}
         slidesPerView={1}
         autoplay={{ delay: 3500 }}
-        pagination={{ clickable: true }}
+        pagination={{ 
+          clickable: true,
+          dynamicBullets: true 
+        }}
         navigation={true}
         breakpoints={{
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 4 },
         }}
-        className="pb-20"
+        className="pb-24 !overflow-visible"
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
@@ -129,6 +132,9 @@ export default function BestSellersSection() {
       </Swiper>
 
       <style>{`
+        .swiper-pagination {
+          bottom: -10px !important;
+        }
         .swiper-button-next, .swiper-button-prev {
           color: #1B4332 !important;
           transform: scale(0.6);
@@ -138,12 +144,14 @@ export default function BestSellersSection() {
           border-radius: 50%;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           border: 1px solid rgba(0,0,0,0.05);
+          top: 40% !important;
         }
         .swiper-pagination-bullet {
           width: 10px;
           height: 10px;
           background: #DEE2E6;
           opacity: 1;
+          transition: all 0.3s ease;
         }
         .swiper-pagination-bullet-active {
           background: #1B4332 !important;

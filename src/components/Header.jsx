@@ -309,21 +309,22 @@ export default function Header() {
 
             <div className="flex items-center gap-2">
                {/* Search Expandable */}
-               <div className={`relative flex items-center transition-all duration-500 ease-out overflow-hidden rounded-2xl bg-surface-container/50 border border-surface-container-highest/20 ${showSearch ? 'w-[200px] md:w-[350px] pr-2' : 'w-11 md:w-12 border-transparent bg-transparent'}`}>
+               <div className={`relative flex items-center transition-all duration-500 ease-out overflow-hidden rounded-2xl bg-surface-container/30 border border-surface-container-highest/20 group/searchbox ${showSearch ? 'w-[240px] md:w-[350px] px-2 ring-2 ring-primary/20 shadow-2xl shadow-primary/10' : 'w-11 md:w-12 border-transparent bg-transparent'}`}>
+                  <div className={`absolute inset-0 bg-primary/5 opacity-0 group-focus-within/searchbox:opacity-100 transition-opacity duration-500`} />
                   <button
                     onClick={() => setShowSearch(!showSearch)}
-                    className={`flex-shrink-0 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 ${showSearch ? 'text-primary' : 'text-on-background/50 hover:text-primary'}`}
+                    className={`relative z-10 flex-shrink-0 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 ${showSearch ? 'text-primary' : 'text-on-background/50 hover:text-primary'}`}
                   >
                     <span className="material-symbols-outlined text-[1.5rem]">{showSearch ? 'close' : 'search'}</span>
                   </button>
-                  <form onSubmit={handleSearchSubmit} className={`flex-1 flex items-center pr-3 transition-opacity duration-300 ${showSearch ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                  <form onSubmit={handleSearchSubmit} className={`relative z-10 flex-1 flex items-center px-3 transition-opacity duration-300 ${showSearch ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                     <input
                       ref={searchInputRef}
                       type="text"
-                      placeholder="ابحث عن منتج... / Search products..."
+                      placeholder="ابحث هنا... / Search..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-transparent border-none outline-none font-bold text-sm text-primary placeholder:text-primary/30"
+                      className="w-full bg-transparent border-none outline-none font-bold text-[13px] text-primary placeholder:text-primary/30"
                     />
                   </form>
                </div>
