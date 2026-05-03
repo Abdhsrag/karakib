@@ -103,13 +103,18 @@ export default function Footer() {
                 <h3 className="font-bold text-lg">الموقع</h3>
                 <p className="text-[8px] uppercase tracking-widest opacity-40">Location</p>
               </div>
-              <div className="flex items-start gap-3 text-white/60">
-                <span className="material-symbols-outlined text-secondary">location_on</span>
+              <a 
+                href="https://maps.app.goo.gl/F5jMwdJ5t71VbLW38" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-start gap-3 text-white/60 hover:text-white transition-colors group"
+              >
+                <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">location_on</span>
                 <p className="text-sm leading-relaxed">
                   القاهرة، جمهورية مصر العربية<br />
                   Cairo, Egypt
                 </p>
-              </div>
+              </a>
               <div className="w-full h-px bg-white/10" />
               <div className="flex items-center gap-3 text-secondary">
                  <span className="material-symbols-outlined">verified</span>
@@ -120,20 +125,20 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 opacity-60">
-          <div className="flex items-center gap-3">
-             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 Karakeb Luxury | كراكيب</span>
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3 opacity-60">
+             <span className="text-[12px] font-bold uppercase tracking-[0.2em]">© 2026 Karakeb Luxury | كراكيب</span>
           </div>
           
-          <div className="flex items-center gap-2 group/nova text-[10px] font-bold uppercase tracking-widest">
-            <span>Made with</span>
-            <span className="material-symbols-outlined text-[14px] text-red-500 animate-pulse">favorite</span>
-            <span>by</span>
+          <div className="flex items-center gap-3 group/nova text-sm font-bold uppercase tracking-widest">
+            <span className="opacity-60">Made with</span>
+            <span className="material-symbols-outlined text-lg text-red-500 animate-pulse">favorite</span>
+            <span className="opacity-60">by</span>
             <a 
               href="https://nova-4solutions.vercel.app" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-white hover:text-secondary transition-all"
+              className="text-white hover:text-secondary transition-all text-xl font-black tracking-tighter"
             >
               Nova Solutions
             </a>

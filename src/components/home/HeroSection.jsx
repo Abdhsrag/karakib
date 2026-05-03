@@ -13,7 +13,6 @@ const promos = [
     titleEn: 'Best Offers',
     desc: 'خصم ٢٠٪ على جميع التحف الأندلسية',
     descEn: '20% Off All Andalusian Antiques',
-    code: 'KARAKEB20',
     color: 'bg-primary'
   },
   {
@@ -21,7 +20,6 @@ const promos = [
     titleEn: 'Free Delivery',
     desc: 'على جميع الطلبات بأكثر من ١٠٠٠ ج.م',
     descEn: 'On all orders over 1000 EGP',
-    code: 'FREE1000',
     color: 'bg-secondary'
   },
   {
@@ -29,7 +27,6 @@ const promos = [
     titleEn: 'New Arrivals',
     desc: 'اكتشف مجموعة الربيع الجديدة من الفازات',
     descEn: 'Discover our new Spring Vases collection',
-    code: 'NEWSPRING',
     color: 'bg-primary-hover'
   }
 ]
@@ -108,10 +105,15 @@ export default function HeroSection() {
                       <p className="text-on-background/60 text-xs italic mb-3">{promo.descEn}</p>
                       <div className="flex items-center justify-between border-t border-primary/10 pt-3">
                         <div className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-primary text-sm">confirmation_number</span>
-                          <span className="font-black text-primary tracking-widest text-sm">{promo.code}</span>
+                           <span className="material-symbols-outlined text-primary text-sm">local_offer</span>
+                           <span className="font-black text-primary tracking-widest text-xs uppercase">العرض متاح الآن / Available Now</span>
                         </div>
-                        <span className="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-bold uppercase tracking-tighter">كود الخصم / Promo Code</span>
+                        <button 
+                          onClick={() => navigate('/categories')}
+                          className="text-[10px] bg-primary text-white px-4 py-1.5 rounded-full font-bold uppercase tracking-tighter hover:bg-primary-hover transition-colors"
+                        >
+                          تسوّق / Shop
+                        </button>
                       </div>
                     </div>
                   </SwiperSlide>

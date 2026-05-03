@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api-proxy': {
-          target: env.VITE_API_BASE_URL || 'https://mustafa-badran.com/app2',
+          target: env.VITE_API_BASE_URL || 'https://mustafa-badran.com/app2/',
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/api-proxy/, '')

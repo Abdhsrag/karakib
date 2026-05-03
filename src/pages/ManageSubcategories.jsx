@@ -86,113 +86,147 @@ const ManageSubcategories = () => {
     }
   };
 
-  if (loading) return <div className="animate-pulse space-y-4">
-    <div className="h-12 bg-slate-200 rounded-xl w-1/4"></div>
-    <div className="h-64 bg-slate-200 rounded-xl"></div>
-  </div>;
+  if (loading) return (
+    <div className="animate-pulse space-y-6">
+      <div className="h-10 bg-primary/5 rounded-2xl w-1/4"></div>
+      <div className="h-96 bg-primary/5 rounded-[2rem]"></div>
+    </div>
+  );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Store Subcategories</h2>
+    <div className="space-y-8 pb-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-3xl font-heading font-black text-primary tracking-tight">الأقسام الفرعية</h2>
+          <p className="text-on-background/40 text-xs font-bold uppercase tracking-widest mt-1">Subcategory Catalog Management</p>
+        </div>
         <button
           onClick={() => handleOpenModal()}
-          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold shadow-lg shadow-indigo-500/30 transition-all flex items-center gap-2"
+          className="bg-primary text-white px-6 py-4 rounded-2xl font-black text-sm hover:bg-primary-hover shadow-xl shadow-primary/20 transition-all flex items-center gap-3 active:scale-95"
         >
-          <i className="bi-plus-lg"></i> Add Subcategory
+          <span className="material-symbols-outlined">add</span>
+          إضافة قسم فرعي / Add Subcategory
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <table className="w-full text-left">
-          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm font-semibold uppercase tracking-wider">
-            <tr>
-              <th className="px-6 py-4">Image</th>
-              <th className="px-6 py-4">Name</th>
-              <th className="px-6 py-4">Category</th>
-              <th className="px-6 py-4">Title</th>
-              <th className="px-6 py-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100 text-slate-700">
-            {subcategories.map((sub) => (
-              <tr key={sub.id} className="hover:bg-slate-50/50 transition-colors group">
-                <td className="px-6 py-4">
-                  <img src={sub.img_url} alt={sub.name} className="h-12 w-12 rounded-lg object-cover border border-slate-200" />
-                </td>
-                <td className="px-6 py-4 font-semibold text-slate-900">{sub.name}</td>
-                <td className="px-6 py-4">
-                  <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded-md text-xs font-bold uppercase">
-                    {sub.category_title}
-                  </span>
-                </td>
-                <td className="px-6 py-4">{sub.title}</td>
-                <td className="px-6 py-4 text-right">
-                  <div className="flex justify-end gap-2">
-                    <button onClick={() => handleOpenModal(sub)} className="p-2 hover:bg-indigo-50 text-indigo-600 rounded-lg"><i className="bi-pencil"></i></button>
-                    <button onClick={() => handleDelete(sub.id)} className="p-2 hover:bg-red-50 text-red-600 rounded-lg"><i className="bi-trash"></i></button>
-                  </div>
-                </td>
+      <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/[0.03] border border-surface-container overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-right border-collapse">
+            <thead>
+              <tr className="bg-surface-container/50 border-b border-surface-container text-on-background/40 text-[10px] font-black uppercase tracking-[0.2em]">
+                <th className="px-8 py-5">الصورة / Image</th>
+                <th className="px-8 py-5">الاسم / Name</th>
+                <th className="px-8 py-5">القسم الرئيسي / Category</th>
+                <th className="px-8 py-5">العنوان / Title</th>
+                <th className="px-8 py-5 text-left">التحكم / Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-surface-container text-on-background">
+              {subcategories.map((sub) => (
+                <tr key={sub.id} className="hover:bg-primary/[0.02] transition-colors group">
+                  <td className="px-8 py-6">
+                    <div className="h-14 w-14 rounded-2xl overflow-hidden border border-surface-container shadow-sm flex-shrink-0">
+                      <img src={sub.img_url} alt={sub.name} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                  </td>
+                  <td className="px-8 py-6">
+                    <span className="font-bold text-primary text-base">{sub.name}</span>
+                  </td>
+                  <td className="px-8 py-6">
+                    <span className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-full border border-primary/5">{sub.category_title}</span>
+                  </td>
+                  <td className="px-8 py-6">
+                    <span className="text-sm font-medium text-on-background/60">{sub.title}</span>
+                  </td>
+                  <td className="px-8 py-6 text-left">
+                    <div className="flex justify-start gap-2">
+                      <button 
+                        onClick={() => handleOpenModal(sub)} 
+                        className="w-10 h-10 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-sm"
+                      >
+                        <span className="material-symbols-outlined text-lg">edit</span>
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(sub.id)} 
+                        className="w-10 h-10 rounded-xl bg-error/5 text-error hover:bg-error hover:text-white transition-all flex items-center justify-center shadow-sm"
+                      >
+                        <span className="material-symbols-outlined text-lg">delete</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <Modal 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
-        title={editingSub ? 'Edit Subcategory' : 'Add New Subcategory'}
+        title={editingSub ? 'تعديل القسم الفرعي / Edit Subcategory' : 'إضافة قسم فرعي جديد / Add New Subcategory'}
       >
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Parent Category</label>
-            <select
-              required
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-              value={formData.category_id}
-              onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-            >
-              {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
-            <input
-              type="text"
-              required
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-            <input
-              type="text"
-              required
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            />
-          </div>
-          {!editingSub && (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Image</label>
-              <input
-                type="file"
+              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">القسم الرئيسي / Parent Category</label>
+              <select
                 required
-                className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-all"
-                onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                value={formData.category_id}
+                onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+              >
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">اسم القسم الفرعي / Name</label>
+              <input
+                type="text"
+                required
+                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
-          )}
-          <div className="pt-4 flex gap-3">
-            <button type="button" onClick={handleCloseModal} className="flex-1 px-4 py-2 border border-slate-300 rounded-xl text-slate-700 font-bold hover:bg-slate-50">Cancel</button>
-            <button type="submit" disabled={isSubmitting} className="flex-1 px-4 py-2 bg-indigo-500 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-500/20 disabled:opacity-50">
-              {isSubmitting ? 'Saving...' : 'Save Subcategory'}
+            <div>
+              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">العنوان / Title</label>
+              <input
+                type="text"
+                required
+                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              />
+            </div>
+            {!editingSub && (
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة / Image</label>
+                <input
+                  type="file"
+                  required
+                  className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
+                  onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                />
+              </div>
+            )}
+          </div>
+          <div className="pt-6 flex gap-4">
+            <button 
+              type="button" 
+              onClick={handleCloseModal} 
+              className="flex-1 px-6 py-4 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all"
+            >
+              إلغاء / Cancel
+            </button>
+            <button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="flex-2 px-6 py-4 bg-primary text-white rounded-2xl font-black text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
+            >
+              {isSubmitting ? 'جاري الحفظ...' : 'حفظ القسم الفرعي / Save Subcategory'}
             </button>
           </div>
         </form>
