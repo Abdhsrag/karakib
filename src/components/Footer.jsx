@@ -12,12 +12,12 @@ const socials = [
 ]
 
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/images/karakeb_logo2.png'
+import logo from '../assets/images/logo.png'
 
 export default function Footer() {
   const navigate = useNavigate()
   return (
-    <footer className="relative w-full py-20 px-4 bg-primary text-white overflow-hidden mt-24">
+    <footer className="relative w-full py-12 px-4 bg-primary text-white overflow-hidden mt-24">
       {/* Decorative mashrabiya pattern overlay */}
       <div className="absolute inset-0 opacity-[0.03] bg-mashrabiya pointer-events-none" />
       
@@ -25,15 +25,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-16 lg:gap-8 mb-20">
           
           {/* Brand Column */}
-          <div className="lg:col-span-1 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-right">
+          <div className="lg:col-span-1 space-y-4 flex flex-col items-center lg:items-start text-center lg:text-right">
             <div 
               onClick={() => navigate('/')}
-              className="bg-white p-4 rounded-[2rem] shadow-2xl cursor-pointer hover:scale-105 transition-transform"
+              className="cursor-pointer hover:scale-105 transition-transform"
             >
               <img
                 src={logo}
                 alt="كراكيب"
-                className="h-16 w-auto object-contain"
+                className="h-48 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
               />
             </div>
@@ -130,7 +130,7 @@ export default function Footer() {
              <span className="text-[12px] font-bold uppercase tracking-[0.2em]">© 2026 Karakeb Luxury | كراكيب</span>
           </div>
           
-          <div className="flex items-center gap-3 group/nova text-sm font-bold uppercase tracking-widest">
+          <div className="flex items-center gap-3 group/nova text-sm font-bold uppercase tracking-widest" dir="ltr">
             <span className="opacity-60">Made with</span>
             <span className="material-symbols-outlined text-lg text-red-500 animate-pulse">favorite</span>
             <span className="opacity-60">by</span>

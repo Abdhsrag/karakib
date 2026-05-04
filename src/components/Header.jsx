@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import CheckoutModal from './CheckoutModal';
 import { useCart } from '../context/CartContext'
-import logo from '../assets/images/karakeb_logo2.png';
+import logo from '../assets/images/logo.png';
 
 const menuItemsLeft = [
   { icon: 'home', label: 'الرئيسية', labelEn: 'Home', path: '/' },
@@ -41,11 +41,12 @@ function Sidebar({ isOpen, onClose }) {
           transition: 'right 0.35s ease-in-out, box-shadow 0.35s',
         }}
       >
-        <div className="flex items-center justify-between p-5 border-b border-surface-container">
+        <div className="flex items-center justify-between p-3 border-b border-surface-container">
           <img
             src={logo}
             alt="كراكيب"
-            className="h-16 w-auto object-contain"
+            className="h-30 w-auto object-contain"
+            style={{ mixBlendMode: 'multiply' }}
           />
           <button onClick={onClose} className="text-primary p-1">
             <span className="material-symbols-outlined text-2xl">close</span>
@@ -275,13 +276,16 @@ export default function Header() {
           {/* CENTER: Logo (Hidden when searching on small-ish screens to give space) */}
           <div
             onClick={() => navigate('/')}
-            className={`flex-shrink-0 cursor-pointer transition-all duration-500 hover:scale-105 active:scale-95 px-4 ${showSearch ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}
+            className={`relative flex-shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 active:scale-95 px-4 w-32 md:w-48 h-full flex items-center justify-center ${showSearch ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}
           >
             <img
               src={logo}
               alt="كراكيب"
-              className="h-10 md:h-14 w-auto object-contain"
-              style={{ mixBlendMode: 'multiply' }}
+              className="absolute h-24 md:h-40 w-auto max-w-none object-contain transition-all duration-500"
+              style={{ 
+                mixBlendMode: 'multiply',
+                filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.05))'
+              }}
             />
           </div>
 

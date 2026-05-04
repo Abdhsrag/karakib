@@ -131,6 +131,19 @@ const AdminDashboard = () => {
                 <p className="text-[10px] font-bold text-on-background/40 uppercase tracking-widest">View Orders</p>
               </div>
             </button>
+
+            <button 
+              onClick={() => navigate('/admin/admins')}
+              className="flex items-center gap-5 p-6 rounded-[1.5rem] border border-surface-container hover:bg-primary/[0.02] hover:border-primary/20 transition-all text-right group active:scale-95"
+            >
+              <div className="h-14 w-14 rounded-2xl bg-primary/5 text-primary flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                <span className="material-symbols-outlined">person_add</span>
+              </div>
+              <div className="flex flex-col items-start leading-tight">
+                <p className="font-black text-primary text-base">إنشاء مسؤول</p>
+                <p className="text-[10px] font-bold text-on-background/40 uppercase tracking-widest">New Admin Account</p>
+              </div>
+            </button>
           </div>
         </div>
       </div>

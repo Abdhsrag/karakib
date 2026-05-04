@@ -18,6 +18,7 @@ import ManageSubcategories from './pages/ManageSubcategories';
 import ManageProducts from './pages/ManageProducts';
 import ManageCoupons from './pages/ManageCoupons';
 import ManageOrders from './pages/ManageOrders';
+import ManageAdmins from './pages/ManageAdmins';
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="products" element={<ManageProducts />} />
             <Route path="coupons" element={<ManageCoupons />} />
             <Route path="orders" element={<ManageOrders />} />
+            <Route path="admins" element={<ManageAdmins />} />
           </Route>
 
           {/* 404 Redirect */}

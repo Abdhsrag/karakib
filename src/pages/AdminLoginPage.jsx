@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/images/karakeb_logo2.png';
+import logo from '../assets/images/logo.png';
 
 const AdminLoginPage = () => {
   const [username, setUsername] = useState('');
@@ -36,7 +36,7 @@ const AdminLoginPage = () => {
           <img
             src={logo}
             alt="Karakeb"
-            className="h-20 w-auto mx-auto mb-8 object-contain"
+            className="h-48 w-auto mx-auto mb-8 object-contain"
             style={{ mixBlendMode: 'multiply' }}
           />
           <h2 className="text-3xl font-heading font-black text-primary tracking-tight">
