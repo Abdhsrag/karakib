@@ -111,8 +111,8 @@ export default function Footer() {
               >
                 <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">location_on</span>
                 <p className="text-sm leading-relaxed">
-                  القاهرة، جمهورية مصر العربية<br />
-                  Cairo, Egypt
+                  مصر، محافظة أسيوط، قسم ثان أسيوط، شارع محمود رشوان<br />
+                  Egypt, Assiut Gov., 2nd Assiut Dept., Mahmoud Rashwan St.
                 </p>
               </a>
               <div className="w-full h-px bg-white/10" />

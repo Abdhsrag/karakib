@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useCart } from '../context/CartContext';
 
 export default function ProductDrawer({ product, isOpen, onClose }) {
@@ -12,19 +13,19 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
     onClose();
   };
 
-  return (
+  return createPortal(
     <>
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity duration-500 ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[9998] transition-opacity duration-500 ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       />
 
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white z-[160] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white z-[9999] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -130,6 +131,7 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
           </button>
         </div>
       </aside>
-    </>
+    </>,
+    document.body
   );
 }

@@ -21,7 +21,6 @@ const AdminLayout = () => {
     { name: 'Products', path: '/admin/products', icon: 'inventory_2', labelAr: 'المنتجات' },
     { name: 'Coupons', path: '/admin/coupons', icon: 'confirmation_number', labelAr: 'الكوبونات' },
     { name: 'Orders', path: '/admin/orders', icon: 'receipt_long', labelAr: 'الطلبات' },
-    { name: 'Admins', path: '/admin/admins', icon: 'shield_person', labelAr: 'المسؤولين' },
   ];
 
   return (
@@ -84,7 +83,7 @@ const AdminLayout = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden relative min-w-0">
         {/* Header */}
-        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-surface-container flex items-center justify-between px-6 md:px-10 z-30">
+        <header className="h-16 md:h-20 bg-white/80 backdrop-blur-md border-b border-surface-container flex items-center justify-between px-4 md:px-10 z-30">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -92,7 +91,7 @@ const AdminLayout = () => {
             >
               <span className="material-symbols-outlined">menu</span>
             </button>
-            <h1 className="text-2xl font-heading font-black text-primary">
+            <h1 className="text-xl md:text-2xl font-heading font-black text-primary">
               {navItems.find(item => item.path === location.pathname)?.labelAr || 'المسؤول'}
             </h1>
           </div>
@@ -109,7 +108,7 @@ const AdminLayout = () => {
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-surface-container/30 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto overflow-x-auto p-4 md:p-8 bg-surface-container/30 custom-scrollbar">
           <div className="w-full max-w-[1600px] mx-auto animate-fade-in px-2 md:px-4">
             <Outlet />
           </div>

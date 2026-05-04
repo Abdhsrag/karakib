@@ -36,7 +36,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full flex flex-col items-center justify-center overflow-hidden min-h-[90vh] pt-24 pb-20 px-4 bg-white"
+      className="relative w-full flex flex-col items-center justify-center overflow-hidden min-h-[90vh] pt-20 md:pt-24 pb-12 md:pb-20 px-4 bg-white"
     >
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-mashrabiya" />
@@ -52,15 +52,14 @@ export default function HeroSection() {
             <span className="font-bold text-xs uppercase tracking-widest">مجموعات حصرية / Exclusive Collections</span>
           </div>
 
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-black text-primary leading-[1.1] drop-shadow-sm">
-            من مكان يلهمك…<br />
-            <span className="text-on-background/90 text-4xl md:text-6xl lg:text-7xl">لمساحات نحققها</span>
+          <h1 className="text-display-lg font-black text-primary leading-[1.1] mb-8 animate-fade-in">
+            عالم من <span className="bg-gradient-to-r from-accent-dark via-accent to-accent-light bg-clip-text text-transparent">الفخامة والأناقة</span>
           </h1>
 
-          <p className="text-on-background/60 font-body text-lg md:text-xl max-w-[600px] leading-relaxed">
+          <p className="text-on-background/60 font-body text-base md:text-xl max-w-[600px] leading-relaxed">
             اكتشف مجموعتنا الحصرية من القطع الفنية والديكورات التي تضيف لمسة من الرقي الخالد إلى منزلك.
             <br />
-            <span className="text-sm uppercase tracking-widest mt-2 block opacity-50">Handcrafted elegance for your modern living space.</span>
+            <span className="text-xs uppercase tracking-widest mt-2 block opacity-50">Handcrafted elegance for your modern living space.</span>
           </p>
 
           <div className="flex flex-wrap items-center justify-center lg:justify-end gap-4">

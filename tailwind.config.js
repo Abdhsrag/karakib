@@ -46,7 +46,15 @@ export default {
         "inverse-surface":          "#1B4332",
         "inverse-on-surface":       "#FFFFFF",
         "inverse-primary":          "#95D5B2",
-        "surface-tint":             "#1B4332"
+        "surface-tint":             "#1B4332",
+        // Premium Gold Palette
+        "accent": {
+          "light": "#F5C97A",
+          "medium": "#D4943A",
+          "DEFAULT": "#C47A2C",
+          "dark": "#A3621E",
+          "deep": "#7A4A15",
+        }
       },
       borderRadius: {
         DEFAULT: "0.5rem",

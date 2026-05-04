@@ -69,8 +69,8 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-stone-900/60 backdrop-blur-md p-4">
         <div className="bg-white w-full max-w-md rounded-3xl p-10 text-center shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)] border border-surface-container">
-          <div className="w-20 h-20 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-6">
-            <span className="material-symbols-outlined text-4xl text-secondary">check_circle</span>
+          <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span className="material-symbols-outlined text-4xl text-accent">check_circle</span>
           </div>
           <h2 className="text-2xl font-display-lg text-primary mb-2">تم استلام طلبك بنجاح!</h2>
           <p className="text-on-surface-variant font-body-rg mb-8">
@@ -120,7 +120,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
               name="client_name"
               value={formData.client_name}
               onChange={handleChange}
-              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-on-surface placeholder:text-stone-400"
+              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:outline-none transition-all text-on-surface placeholder:text-stone-400"
               placeholder="مثال: أحمد محمد"
             />
           </div>
@@ -133,7 +133,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
               name="client_phone"
               value={formData.client_phone}
               onChange={handleChange}
-              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-on-surface placeholder:text-stone-400"
+              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:outline-none transition-all text-on-surface placeholder:text-stone-400"
               placeholder="01xxxxxxxxx"
               dir="ltr"
             />
@@ -147,7 +147,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
               value={formData.client_address}
               onChange={handleChange}
               rows="3"
-              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-on-surface resize-none placeholder:text-stone-400"
+              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:outline-none transition-all text-on-surface resize-none placeholder:text-stone-400"
               placeholder="المدينة، الحي، الشارع، رقم المبنى..."
             />
           </div>
@@ -159,7 +159,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
               value={formData.notes}
               onChange={handleChange}
               rows="2"
-              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-on-surface resize-none placeholder:text-stone-400"
+              className="w-full px-5 py-4 rounded-xl border border-surface-container bg-white shadow-inner focus:outline-none transition-all text-on-surface resize-none placeholder:text-stone-400"
               placeholder="مثال: التوصيل بعد الساعة ٥ مساءً"
             />
           </div>
@@ -167,7 +167,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-5 bg-gradient-to-r from-primary to-primary-hover text-white rounded-xl font-inherit text-xl font-bold shadow-[0_10px_30px_rgba(196,122,44,0.3)] hover:shadow-[0_15px_40px_rgba(196,122,44,0.4)] transition-all flex justify-center items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0"
+            className="w-full py-5 bg-gradient-to-r from-accent-dark via-accent to-accent-medium text-white rounded-xl font-inherit text-xl font-bold shadow-[0_10px_30px_rgba(196,122,44,0.3)] hover:shadow-[0_15px_40px_rgba(196,122,44,0.4)] transition-all flex justify-center items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0"
           >
             {loading ? (
               <span className="animate-spin inline-block w-6 h-6 border-[3px] border-white/30 border-t-white rounded-full" />

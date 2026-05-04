@@ -67,18 +67,18 @@ function CategorySlideCard({ id, name, nameEn, img, path }) {
           loading="lazy"
         />
 
-        <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+        <div className="absolute inset-0 bg-accent/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
             <div className="w-16 h-16 rounded-full bg-white shadow-2xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
-              <span className="material-symbols-outlined text-primary text-3xl">arrow_outward</span>
+              <span className="material-symbols-outlined text-accent text-3xl">arrow_outward</span>
             </div>
         </div>
       </div>
 
       <div className="mt-8 text-center">
-        <h3 className="font-heading text-2xl font-black text-on-background group-hover:text-primary transition-colors leading-tight">
+        <h3 className="font-heading text-2xl font-black text-on-background group-hover:text-accent-dark transition-colors leading-tight">
           {name}
         </h3>
-        <p className="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-1 opacity-0 group-hover:opacity-100 transition-opacity">{nameEn}</p>
+        <p className="text-[10px] text-accent/60 font-bold uppercase tracking-widest mt-1 opacity-0 group-hover:opacity-100 transition-opacity">{nameEn}</p>
       </div>
     </div>
   )
@@ -103,16 +103,16 @@ export default function MainCategories() {
   if (categories.length === 0) return null;
 
   return (
-    <section className="py-24 px-5 mx-auto max-w-7xl overflow-hidden">
+    <section className="py-12 md:py-24 px-5 mx-auto max-w-7xl overflow-hidden">
       <div className="text-center mb-20 space-y-4">
         <div className="flex items-center justify-center gap-3">
-           <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+           <span className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
               <span className="material-symbols-outlined text-sm">auto_awesome</span>
            </span>
-           <span className="font-bold text-primary text-sm uppercase tracking-widest">تصفح الفئات / Browse Categories</span>
+           <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">تصفح الفئات / Browse Categories</span>
         </div>
-        <h2 className="font-heading text-4xl md:text-6xl font-black text-on-background">
-          عالم من <span className="text-primary italic">الفخامة</span> في انتظارك
+        <h2 className="font-heading text-3xl md:text-6xl font-black text-on-background">
+          عالم من <span className="bg-gradient-to-r from-accent-dark to-accent-light bg-clip-text text-transparent italic">الفخامة</span> في انتظارك
         </h2>
       </div>
 
@@ -145,13 +145,13 @@ export default function MainCategories() {
 
       <style>{`
         .swiper-button-next, .swiper-button-prev {
-          color: #1B4332 !important;
+          color: #C47A2C !important;
           transform: scale(0.6);
           background: white;
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 10px 30px rgba(196,122,44,0.15);
         }
         .swiper-pagination-bullet {
           width: 8px;
@@ -160,7 +160,7 @@ export default function MainCategories() {
           opacity: 1;
         }
         .swiper-pagination-bullet-active {
-          background: #1B4332 !important;
+          background: #C47A2C !important;
           width: 24px;
           border-radius: 4px;
         }

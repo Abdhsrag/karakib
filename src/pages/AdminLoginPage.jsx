@@ -8,6 +8,7 @@ const AdminLoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -61,7 +62,7 @@ const AdminLoginPage = () => {
               <input
                 type="text"
                 required
-                className="appearance-none block w-full px-5 py-4 bg-surface-container/50 border border-surface-container rounded-2xl text-primary placeholder-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-bold"
+                className="appearance-none block w-full px-5 py-4 bg-surface-container/50 border border-surface-container rounded-2xl text-primary placeholder-primary/30 focus:outline-none transition-all font-bold"
                 placeholder="admin"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -69,14 +70,25 @@ const AdminLoginPage = () => {
             </div>
             <div>
               <label className="block text-xs font-black text-primary uppercase tracking-widest mb-2 ml-1">Password / كلمة المرور</label>
-              <input
-                type="password"
-                required
-                className="appearance-none block w-full px-5 py-4 bg-surface-container/50 border border-surface-container rounded-2xl text-primary placeholder-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-bold"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  className="appearance-none block w-full px-5 py-4 bg-surface-container/50 border border-surface-container rounded-2xl text-primary placeholder-primary/30 focus:outline-none transition-all font-bold pr-14"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 hover:text-primary transition-colors"
+                >
+                  <span className="material-symbols-outlined">
+                    {showPassword ? 'visibility_off' : 'visibility'}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 

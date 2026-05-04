@@ -17,7 +17,7 @@ export default function SubCategoryPage() {
           
           <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
             <h1 className="text-5xl md:text-7xl font-black text-on-background mb-6 leading-tight">
-              الأقسام الفرعية
+              الأقسام <span className="bg-gradient-to-r from-accent-dark via-accent to-accent-light bg-clip-text text-transparent">الفرعية</span>
             </h1>
             <p className="text-xl md:text-2xl leading-relaxed text-on-background/70 max-w-2xl mx-auto mb-10">
               تصفح التشكيلات المميزة والفريدة
@@ -27,7 +27,7 @@ export default function SubCategoryPage() {
             <div className="flex justify-center">
               <button
                 onClick={() => navigate(-1)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-surface-container shadow-sm text-on-background/70 hover:text-primary hover:border-primary/30 hover:shadow-md transition-all duration-300 group"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-surface-container shadow-sm text-on-background/70 hover:text-accent-dark hover:border-accent/30 hover:shadow-md transition-all duration-300 group"
               >
                 <span className="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
                 <span className="font-inherit text-sm font-bold">العودة</span>
@@ -64,14 +64,14 @@ export default function SubCategoryPage() {
                       alt={sub.title}
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <div className="w-14 h-14 rounded-full bg-white/90 shadow-xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
-                        <span className="material-symbols-outlined text-primary text-3xl">arrow_forward</span>
+                    <div className="absolute inset-0 bg-accent/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                        <span className="material-symbols-outlined text-accent text-3xl">arrow_forward</span>
                       </div>
                     </div>
                   </div>
                   <div className="p-6 text-center">
-                    <h3 className="font-inherit text-xl font-bold text-on-background group-hover:text-primary transition-colors">
+                    <h3 className="font-inherit text-xl font-bold text-on-background group-hover:text-accent transition-colors">
                       {sub.title}
                     </h3>
                   </div>

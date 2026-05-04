@@ -25,10 +25,10 @@ export default function CategoriesPage({ onNavigate, currentPage }) {
               }
             `}</style>
             <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
-              <h1 className="text-5xl md:text-7xl font-black text-on-background mb-6 leading-tight">
-                الأقسام الرئيسية
+              <h1 className="text-4xl md:text-7xl font-black text-on-background mb-6 leading-tight">
+                الأقسام <span className="bg-gradient-to-r from-accent-dark via-accent to-accent-light bg-clip-text text-transparent">الرئيسية</span>
               </h1>
-              <p className="text-xl md:text-2xl leading-relaxed text-on-background/70 max-w-2xl mx-auto">
+              <p className="text-lg md:text-2xl leading-relaxed text-on-background/70 max-w-2xl mx-auto">
                 اكتشف مجموعتنا المختارة بعناية من القطع الفنية والديكورات 
                 التي تضفي لمسة من الفخامة والدفء على منزلك.
               </p>

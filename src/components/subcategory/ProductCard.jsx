@@ -56,7 +56,7 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
           </button>
 
           {product.isNew && (
-            <div className="absolute top-5 left-5 z-20 px-4 py-1.5 rounded-full bg-secondary text-white text-[10px] font-black shadow-lg uppercase tracking-widest">
+            <div className="absolute top-5 left-5 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-light text-white text-[10px] font-black shadow-lg uppercase tracking-widest border border-white/20">
               جديد / New
             </div>
           )}
@@ -65,10 +65,10 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
         {/* Product Info */}
         <div className="px-2">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="font-heading text-lg font-bold text-on-background transition-colors duration-300 group-hover:text-primary leading-tight line-clamp-1">
+            <h3 className="font-heading text-lg font-bold text-on-background transition-colors duration-300 group-hover:text-accent-dark leading-tight line-clamp-1">
               {product.title}
             </h3>
-            <span className="font-heading text-[10px] text-primary/40 font-bold uppercase tracking-widest">Premium</span>
+            <span className="font-heading text-[10px] text-accent/60 font-bold uppercase tracking-widest">Premium</span>
           </div>
           
           <div className="flex justify-between items-center">
@@ -77,7 +77,7 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
             </span>
             <div className="flex gap-1">
                {[1,2,3,4,5].map(i => (
-                 <span key={i} className="material-symbols-outlined text-[10px] text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                 <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                ))}
             </div>
           </div>

@@ -65,19 +65,26 @@ function ProductCard({ product, onClick }) {
         </div>
 
         {product.isNew && (
-          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-secondary text-white text-[10px] font-black shadow-lg uppercase tracking-widest">
+          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-light text-white text-[10px] font-black shadow-lg uppercase tracking-widest border border-white/20">
             جديد / New
           </div>
         )}
       </div>
 
       <div className="px-2 text-center">
-        <h3 className="font-heading text-xl font-bold text-on-background group-hover:text-primary transition-colors mb-2">
+        <h3 className="font-heading text-xl font-bold text-on-background group-hover:text-accent transition-colors mb-2">
           {product.title}
         </h3>
-        <span className="font-heading text-2xl font-black text-primary">
-          {product.price}
-        </span>
+        <div className="flex flex-col items-center gap-1">
+          <span className="font-heading text-2xl font-black text-primary">
+            {product.price}
+          </span>
+          <div className="flex gap-1">
+             {[1,2,3,4,5].map(i => (
+               <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+             ))}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -89,18 +96,18 @@ export default function BestSellersSection() {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-24 px-5 mx-auto max-w-7xl">
+    <section className="py-12 md:py-24 px-5 mx-auto max-w-7xl">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <div className="flex flex-col items-start text-right">
           <div className="flex items-center gap-2 mb-4">
-             <span className="w-12 h-[2px] bg-primary rounded-full" />
-             <span className="font-bold text-primary text-sm uppercase tracking-widest">الأكثر مبيعاً / Best Sellers</span>
+             <span className="w-12 h-[2px] bg-accent-medium rounded-full" />
+             <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">الأكثر مبيعاً / Best Sellers</span>
           </div>
-          <h2 className="font-heading text-4xl md:text-6xl font-black text-on-background">
-            اختيارات <span className="text-primary">كراكيب</span> المميزة
+          <h2 className="font-heading text-3xl md:text-6xl font-black text-on-background leading-tight">
+            اختيارات <span className="bg-gradient-to-r from-accent-dark to-accent-light bg-clip-text text-transparent">كراكيب</span> المميزة
           </h2>
         </div>
-        <p className="text-on-background/50 font-body text-base md:text-lg max-w-md text-right">
+        <p className="text-on-background/50 font-body text-sm md:text-lg max-w-md text-right">
           اكتشف القطع الأكثر طلباً التي نالت إعجاب عملائنا بفضل جودتها وتصاميمها الفريدة.
         </p>
       </div>
@@ -136,14 +143,14 @@ export default function BestSellersSection() {
           bottom: -10px !important;
         }
         .swiper-button-next, .swiper-button-prev {
-          color: #1B4332 !important;
+          color: #C47A2C !important;
           transform: scale(0.6);
           background: white;
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          border: 1px solid rgba(0,0,0,0.05);
+          box-shadow: 0 10px 30px rgba(196,122,44,0.15);
+          border: 1px solid rgba(196,122,44,0.1);
           top: 40% !important;
         }
         .swiper-pagination-bullet {
@@ -154,7 +161,7 @@ export default function BestSellersSection() {
           transition: all 0.3s ease;
         }
         .swiper-pagination-bullet-active {
-          background: #1B4332 !important;
+          background: #C47A2C !important;
           width: 30px;
           border-radius: 5px;
         }

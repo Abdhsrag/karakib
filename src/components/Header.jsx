@@ -41,14 +41,14 @@ function Sidebar({ isOpen, onClose }) {
           transition: 'right 0.35s ease-in-out, box-shadow 0.35s',
         }}
       >
-        <div className="flex items-center justify-between p-3 border-b border-surface-container">
+        <div className="flex items-center justify-between p-4 border-b border-surface-container gap-4">
           <img
             src={logo}
             alt="كراكيب"
-            className="h-30 w-auto object-contain"
+            className="h-16 w-auto object-contain flex-shrink"
             style={{ mixBlendMode: 'multiply' }}
           />
-          <button onClick={onClose} className="text-primary p-1">
+          <button onClick={onClose} className="text-primary p-2 hover:bg-primary/10 rounded-full transition-colors flex-shrink-0">
             <span className="material-symbols-outlined text-2xl">close</span>
           </button>
         </div>
@@ -143,7 +143,7 @@ function CartSidebar() {
                     </button>
                   </div>
                   <p className="font-black text-primary text-lg">{String(item.price).includes('ج.م') ? item.price : `${item.price} ج.م`}</p>
-                  
+
                   <div className="flex items-center gap-4 mt-auto">
                     <div className="flex items-center border border-surface-container rounded-full p-1 bg-surface-container/50">
                       <button onClick={() => updateQuantity(item.id, -1)} className="w-7 h-7 rounded-full bg-white flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm">
@@ -241,7 +241,7 @@ export default function Header() {
       <CartSidebar />
 
       <div className="fixed top-0 left-0 right-0 z-50 p-2 md:p-4 pointer-events-none flex justify-center">
-        <header className="pointer-events-auto flex items-center h-16 md:h-20 w-full max-w-[1200px] px-4 md:px-8 bg-white/90 backdrop-blur-xl rounded-[2rem] border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 relative">
+        <header className="pointer-events-auto flex items-center h-14 md:h-20 w-full max-w-[1200px] px-3 md:px-8 bg-white/90 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 relative">
 
           {/* LEFT: Menu (Desktop) / Mobile Toggle */}
           <div className="flex-1 flex items-center">
@@ -251,7 +251,7 @@ export default function Header() {
             >
               <span className="material-symbols-outlined text-[1.5rem]">menu</span>
             </button>
-            
+
             <nav className={`hidden lg:flex items-center gap-10 transition-opacity duration-300 ${showSearch ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
               {menuItemsLeft.map((item) => {
                 const isActive = location.pathname === item.path;
@@ -281,8 +281,8 @@ export default function Header() {
             <img
               src={logo}
               alt="كراكيب"
-              className="absolute h-24 md:h-40 w-auto max-w-none object-contain transition-all duration-500"
-              style={{ 
+              className="absolute h-16 md:h-40 w-auto max-w-none object-contain transition-all duration-500"
+              style={{
                 mixBlendMode: 'multiply',
                 filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.05))'
               }}
@@ -312,38 +312,38 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center gap-2">
-               {/* Search Expandable */}
-               <div className={`relative flex items-center transition-all duration-500 ease-out overflow-hidden rounded-2xl bg-surface-container/30 border border-surface-container-highest/20 group/searchbox ${showSearch ? 'w-[240px] md:w-[350px] px-2 ring-2 ring-primary/20 shadow-2xl shadow-primary/10' : 'w-11 md:w-12 border-transparent bg-transparent'}`}>
-                  <div className={`absolute inset-0 bg-primary/5 opacity-0 group-focus-within/searchbox:opacity-100 transition-opacity duration-500`} />
-                  <button
-                    onClick={() => setShowSearch(!showSearch)}
-                    className={`relative z-10 flex-shrink-0 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 ${showSearch ? 'text-primary' : 'text-on-background/50 hover:text-primary'}`}
-                  >
-                    <span className="material-symbols-outlined text-[1.5rem]">{showSearch ? 'close' : 'search'}</span>
-                  </button>
-                  <form onSubmit={handleSearchSubmit} className={`relative z-10 flex-1 flex items-center px-3 transition-opacity duration-300 ${showSearch ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                    <input
-                      ref={searchInputRef}
-                      type="text"
-                      placeholder="ابحث هنا... / Search..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-transparent border-none outline-none font-bold text-[13px] text-primary placeholder:text-primary/30"
-                    />
-                  </form>
-               </div>
+              {/* Search Expandable */}
+              <div className={`transition-all duration-500 ease-out overflow-hidden rounded-2xl bg-surface-container/30 border border-surface-container-highest/20 group/searchbox flex items-center ${showSearch ? 'fixed inset-x-2 top-2 h-14 md:relative md:inset-auto md:h-auto md:w-[350px] px-2 shadow-2xl shadow-accent/10 bg-white z-[60]' : 'relative w-11 md:w-12 border-transparent bg-transparent'}`}>
+                <div className={`absolute inset-0 bg-primary/5 opacity-0 group-focus-within/searchbox:opacity-100 transition-opacity duration-500`} />
+                <button
+                  onClick={() => setShowSearch(!showSearch)}
+                  className={`relative z-10 flex-shrink-0 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 ${showSearch ? 'text-primary' : 'text-on-background/50 hover:text-primary'}`}
+                >
+                  <span className="material-symbols-outlined text-[1.5rem]">{showSearch ? 'close' : 'search'}</span>
+                </button>
+                <form onSubmit={handleSearchSubmit} className={`relative z-10 flex-1 flex items-center px-3 transition-opacity duration-300 ${showSearch ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="ابحث هنا... / Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-transparent border-none outline-none font-bold text-sm md:text-base text-primary placeholder:text-primary/30"
+                  />
+                </form>
+              </div>
 
-               <button
-                 onClick={toggleCart}
-                 className="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-primary text-white hover:bg-primary-hover hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary/20"
-               >
-                 <span className="material-symbols-outlined text-[1.5rem]">shopping_bag</span>
-                 {cartCount > 0 && (
-                   <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[1.5rem] h-6 px-1 rounded-full bg-secondary text-white text-[10px] font-black border-2 border-white shadow-xl">
-                     {cartCount}
-                   </span>
-                 )}
-               </button>
+              <button
+                onClick={toggleCart}
+                className="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-primary text-white hover:bg-primary-hover hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary/20"
+              >
+                <span className="material-symbols-outlined text-[1.5rem]">shopping_bag</span>
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[1.5rem] h-6 px-1 rounded-full bg-gradient-to-br from-accent-dark via-accent to-accent-light text-white text-[10px] font-black border-2 border-white shadow-xl">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
             </div>
           </div>
 
