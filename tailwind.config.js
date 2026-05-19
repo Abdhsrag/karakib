@@ -79,15 +79,16 @@ export default {
       },
       fontFamily: {
         // Modern clean fonts
-        sans:          ["'Cairo'", "system-ui", "sans-serif"],
-        display:       ["'Cairo'", "sans-serif"],
-        heading:       ["'Cairo'", "sans-serif"],
+        sans:          ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        display:       ["'Marhey'", "'Cairo'", "sans-serif"],
+        heading:       ["'Marhey'", "'Cairo'", "sans-serif"],
         body:          ["'Poppins'", "sans-serif"],
-        "display-lg":  ["'Cairo'", "sans-serif"],
-        "headline-md": ["'Cairo'", "sans-serif"],
-        "title-sm":    ["'Cairo'", "sans-serif"],
+        "display-lg":  ["'Marhey'", "'Cairo'", "sans-serif"],
+        "headline-md": ["'Marhey'", "'Cairo'", "sans-serif"],
+        "title-sm":    ["'Marhey'", "'Cairo'", "sans-serif"],
         "body-rg":     ["'Poppins'", "sans-serif"],
-        "label-xs":    ["'Poppins'", "sans-serif"]
+        "label-xs":    ["'Poppins'", "sans-serif"],
+        marhey:        ["'Marhey'", "sans-serif"]
       },
       fontSize: {
         "display-lg":  ["3.25rem",  { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
