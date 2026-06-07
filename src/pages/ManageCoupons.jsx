@@ -203,93 +203,98 @@ const ManageCoupons = () => {
         onClose={handleCloseModal} 
         title={editingCoupon ? 'تعديل الكوبون / Edit Coupon' : 'إنشاء كوبون جديد / Create New Coupon'}
       >
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="md:col-span-2">
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">كود الكوبون / Coupon Code</label>
-              <input
-                type="text"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-black focus:ring-2 focus:ring-primary/20 outline-none uppercase tracking-widest transition-all"
-                value={formData.code}
-                onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">نوع الخصم / Discount Type</label>
-              <select
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.discount_type}
-                onChange={(e) => setFormData({ ...formData, discount_type: e.target.value })}
-              >
-                <option value="percentage">نسبة مئوية / Percentage (%)</option>
-                <option value="fixed">مبلغ ثابت / Fixed Amount (EGP)</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">القيمة / Amount</label>
-              <input
-                type="number"
-                step="0.01"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.discount_amount}
-                onChange={(e) => setFormData({ ...formData, discount_amount: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">أقصى عدد مرات استخدام / Max Uses</label>
-              <input
-                type="number"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.max_uses}
-                onChange={(e) => setFormData({ ...formData, max_uses: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">أقل قيمة للطلب / Min Order Value (EGP)</label>
-              <input
-                type="number"
-                step="0.01"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.min_order_value}
-                onChange={(e) => setFormData({ ...formData, min_order_value: e.target.value })}
-              />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">تاريخ الانتهاء / Expires At</label>
-              <input
-                type="datetime-local"
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.expires_at}
-                onChange={(e) => setFormData({ ...formData, expires_at: e.target.value })}
-              />
-            </div>
-            <div className="md:col-span-2 flex items-center gap-3 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-              <input
-                type="checkbox"
-                id="is_active_coupon"
-                checked={formData.is_active}
-                onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                className="w-5 h-5 accent-primary rounded-lg cursor-pointer"
-              />
-              <label htmlFor="is_active_coupon" className="text-sm font-black text-primary cursor-pointer select-none">كوبون فعال / Active Coupon</label>
+        <form onSubmit={handleSubmit} className="flex flex-col min-h-0 flex-grow overflow-hidden">
+          <div className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow min-h-0 custom-scrollbar">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">كود الكوبون / Coupon Code</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-black focus:ring-2 focus:ring-primary/20 outline-none uppercase tracking-widest transition-all"
+                  value={formData.code}
+                  onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">نوع الخصم / Discount Type</label>
+                <div className="relative">
+                  <select
+                    className="w-full appearance-none px-5 py-3.5 pr-12 bg-white border-2 border-primary/20 rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/40 outline-none transition-all cursor-pointer hover:border-primary/30"
+                    value={formData.discount_type}
+                    onChange={(e) => setFormData({ ...formData, discount_type: e.target.value })}
+                  >
+                    <option value="percentage">نسبة مئوية / Percentage (%)</option>
+                    <option value="fixed">مبلغ ثابت / Fixed Amount (EGP)</option>
+                  </select>
+                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 pointer-events-none text-lg">expand_more</span>
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">القيمة / Amount</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.discount_amount}
+                  onChange={(e) => setFormData({ ...formData, discount_amount: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">أقصى عدد مرات استخدام / Max Uses</label>
+                <input
+                  type="number"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.max_uses}
+                  onChange={(e) => setFormData({ ...formData, max_uses: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">أقل قيمة للطلب / Min Order Value (EGP)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.min_order_value}
+                  onChange={(e) => setFormData({ ...formData, min_order_value: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">تاريخ الانتهاء / Expires At</label>
+                <input
+                  type="datetime-local"
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.expires_at}
+                  onChange={(e) => setFormData({ ...formData, expires_at: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2 flex items-center gap-3 bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                <input
+                  type="checkbox"
+                  id="is_active_coupon"
+                  checked={formData.is_active}
+                  onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                  className="w-5 h-5 accent-primary rounded-lg cursor-pointer"
+                />
+                <label htmlFor="is_active_coupon" className="text-sm font-black text-primary cursor-pointer select-none">كوبون فعال / Active Coupon</label>
+              </div>
             </div>
           </div>
-          <div className="pt-6 flex gap-4">
+          <div className="p-5 md:p-6 border-t border-surface-container flex flex-col-reverse sm:flex-row gap-3 bg-white flex-shrink-0">
             <button 
               type="button" 
               onClick={handleCloseModal} 
-              className="flex-1 px-6 py-4 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all"
+              className="flex-1 px-6 py-3.5 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all text-sm md:text-base"
             >
               إلغاء / Cancel
             </button>
             <button 
               type="submit" 
               disabled={isSubmitting} 
-              className="flex-2 px-6 py-4 bg-primary text-white rounded-2xl font-black text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
+              className="flex-1 sm:flex-2 px-6 py-3.5 bg-primary text-white rounded-2xl font-black text-sm md:text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
             >
               {isSubmitting ? 'جاري الحفظ...' : 'حفظ الكوبون / Save Coupon'}
             </button>

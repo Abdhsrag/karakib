@@ -132,17 +132,19 @@ const ManageOrders = () => {
                     </td>
                     <td className="px-8 py-6 text-left">
                       <div className="flex justify-start gap-2">
-                        <button 
-                          onClick={() => handleOpenDetails(order)} 
+                        <button
+                          title="عرض التفاصيل / View Details"
+                          onClick={() => handleOpenDetails(order)}
                           className="w-10 h-10 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-sm"
                         >
                           <span className="material-symbols-outlined text-lg">visibility</span>
                         </button>
-                        <button 
-                          onClick={() => handleOpenStatus(order)} 
-                          className="w-10 h-10 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-sm"
+                        <button
+                          title="تحديث الحالة / Update Status"
+                          onClick={() => handleOpenStatus(order)}
+                          className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all flex items-center justify-center shadow-sm border border-amber-100"
                         >
-                          <span className="material-symbols-outlined text-lg">settings</span>
+                          <span className="material-symbols-outlined text-lg">published_with_changes</span>
                         </button>
                       </div>
                     </td>
@@ -157,46 +159,48 @@ const ManageOrders = () => {
       {/* Details Modal */}
       <Modal isOpen={isDetailsModalOpen} onClose={() => setIsDetailsModalOpen(false)} title={`تفاصيل الطلب / Order Details #${selectedOrder?.id}`}>
         {selectedOrder && (
-          <div className="space-y-8 max-h-[75vh] overflow-y-auto px-1 custom-scrollbar">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">اسم العميل / Client Name</p>
-                <p className="font-black text-primary">{selectedOrder.client_name}</p>
-              </div>
-              <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">رقم الهاتف / Phone</p>
-                <p className="font-black text-primary">{selectedOrder.client_phone}</p>
-              </div>
-              <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 md:col-span-2">
-                <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">العنوان / Address</p>
-                <p className="font-black text-primary">{selectedOrder.client_address}</p>
-              </div>
-              {selectedOrder.notes && (
-                <div className="bg-error/5 p-4 rounded-2xl border border-error/10 md:col-span-2">
-                  <p className="text-[10px] font-black text-error/60 uppercase tracking-widest mb-1 text-right">ملاحظات / Notes</p>
-                  <p className="text-sm font-bold text-error italic leading-relaxed text-right">{selectedOrder.notes}</p>
+          <div className="flex flex-col min-h-0 flex-grow overflow-hidden">
+            <div className="p-6 md:p-8 space-y-8 overflow-y-auto flex-grow min-h-0 custom-scrollbar">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                  <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">اسم العميل / Client Name</p>
+                  <p className="font-black text-primary">{selectedOrder.client_name}</p>
                 </div>
-              )}
-            </div>
-
-            <div>
-              <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 border-b border-surface-container pb-2">المنتجات المطلوبة / Items Ordered</h4>
-              <div className="space-y-4">
-                {selectedOrder.items?.map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center bg-surface-container/30 p-4 rounded-2xl border border-surface-container">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xs">
-                        x{item.quantity}
-                      </div>
-                      <p className="font-bold text-primary">{item.product_name}</p>
-                    </div>
-                    <p className="font-black text-primary text-lg">{item.price_at_order * item.quantity} ج.م</p>
+                <div className="bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                  <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">رقم الهاتف / Phone</p>
+                  <p className="font-black text-primary">{selectedOrder.client_phone}</p>
+                </div>
+                <div className="bg-transparent p-4 rounded-2xl border border-surface-container-high md:col-span-2">
+                  <p className="text-[10px] font-black text-primary/40 uppercase tracking-widest mb-1">العنوان / Address</p>
+                  <p className="font-black text-primary">{selectedOrder.client_address}</p>
+                </div>
+                {selectedOrder.notes && (
+                  <div className="bg-transparent p-4 rounded-2xl border border-error/20 md:col-span-2">
+                    <p className="text-[10px] font-black text-error/60 uppercase tracking-widest mb-1 text-right">ملاحظات / Notes</p>
+                    <p className="text-sm font-bold text-error italic leading-relaxed text-right">{selectedOrder.notes}</p>
                   </div>
-                ))}
+                )}
+              </div>
+
+              <div>
+                <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 border-b border-surface-container pb-2">المنتجات المطلوبة / Items Ordered</h4>
+                <div className="space-y-4">
+                  {selectedOrder.items?.map((item, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                      <div className="flex items-center gap-4">
+                        <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xs">
+                          x{item.quantity}
+                        </div>
+                        <p className="font-bold text-primary">{item.product_name}</p>
+                      </div>
+                      <p className="font-black text-primary text-lg">{item.price_at_order * item.quantity} ج.م</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-surface-container flex justify-between items-center">
+            <div className="p-5 md:p-6 border-t border-surface-container flex justify-between items-center bg-white flex-shrink-0">
               <div className="flex flex-col">
                 <span className="text-[10px] font-black text-on-background/40 uppercase tracking-widest">التكلفة الإجمالية / Total Cost</span>
                 <span className="text-3xl font-black text-primary">{selectedOrder.total_cost} ج.م</span>
@@ -208,42 +212,47 @@ const ManageOrders = () => {
 
       {/* Status Modal */}
       <Modal isOpen={isStatusModalOpen} onClose={() => setIsStatusModalOpen(false)} title="تحديث حالة الطلب / Update Status">
-        <form onSubmit={handleUpdateStatus} className="space-y-6">
-          <div>
-            <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الحالة / Status</label>
-            <select
-              className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-              value={statusData.status}
-              onChange={(e) => setStatusData({ ...statusData, status: e.target.value })}
-            >
-              <option value="pending">قيد الانتظار / Pending</option>
-              <option value="confirmed">تم التأكيد / Confirmed</option>
-              <option value="shipped">تم الشحن / Shipped</option>
-              <option value="delivered">تم التوصيل / Delivered</option>
-              <option value="cancelled">ملغي / Cancelled</option>
-            </select>
+        <form onSubmit={handleUpdateStatus} className="flex flex-col min-h-0 flex-grow overflow-hidden">
+          <div className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow min-h-0 custom-scrollbar">
+            <div>
+              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الحالة / Status</label>
+              <div className="relative">
+                <select
+                  className="w-full appearance-none px-5 py-3.5 pr-12 bg-white border-2 border-primary/20 rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/40 outline-none transition-all cursor-pointer hover:border-primary/30"
+                  value={statusData.status}
+                  onChange={(e) => setStatusData({ ...statusData, status: e.target.value })}
+                >
+                  <option value="pending">قيد الانتظار / Pending</option>
+                  <option value="confirmed">تم التأكيد / Confirmed</option>
+                  <option value="shipped">تم الشحن / Shipped</option>
+                  <option value="delivered">تم التوصيل / Delivered</option>
+                  <option value="cancelled">ملغي / Cancelled</option>
+                </select>
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 pointer-events-none text-lg">expand_more</span>
+              </div>
+            </div>
+            <div>
+              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">ملاحظات داخلية / Internal Notes</label>
+              <textarea
+                className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none h-32 resize-none transition-all"
+                placeholder="مثال: تم الاتصال بالعميل، جاري تجهيز الطلب..."
+                value={statusData.actionTaken}
+                onChange={(e) => setStatusData({ ...statusData, actionTaken: e.target.value })}
+              ></textarea>
+            </div>
           </div>
-          <div>
-            <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">ملاحظات داخلية / Internal Notes</label>
-            <textarea
-              className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none h-32 resize-none transition-all"
-              placeholder="مثال: تم الاتصال بالعميل، جاري تجهيز الطلب..."
-              value={statusData.actionTaken}
-              onChange={(e) => setStatusData({ ...statusData, actionTaken: e.target.value })}
-            ></textarea>
-          </div>
-          <div className="pt-6 flex gap-4">
+          <div className="p-5 md:p-6 border-t border-surface-container flex flex-col-reverse sm:flex-row gap-3 bg-white flex-shrink-0">
             <button 
               type="button" 
               onClick={() => setIsStatusModalOpen(false)} 
-              className="flex-1 px-6 py-4 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all"
+              className="flex-1 px-6 py-3.5 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all text-sm md:text-base"
             >
               إلغاء / Cancel
             </button>
             <button 
               type="submit" 
               disabled={isSubmitting} 
-              className="flex-2 px-6 py-4 bg-primary text-white rounded-2xl font-black text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
+              className="flex-1 sm:flex-2 px-6 py-3.5 bg-primary text-white rounded-2xl font-black text-sm md:text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
             >
               {isSubmitting ? 'جاري التحديث...' : 'تحديث الحالة / Update Status'}
             </button>

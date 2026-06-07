@@ -216,116 +216,121 @@ const ManageProducts = () => {
         onClose={handleCloseModal} 
         title={editingProd ? 'تعديل المنتج / Edit Product' : 'إضافة منتج جديد / Add New Product'}
       >
-        <form onSubmit={handleSubmit} className="space-y-6 max-h-[75vh] overflow-y-auto px-1 custom-scrollbar">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="md:col-span-2">
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">القسم الفرعي / Subcategory</label>
-              <select
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.subcategory_id}
-                onChange={(e) => setFormData({ ...formData, subcategory_id: e.target.value })}
-              >
-                {subcategories.map(sub => (
-                  <option key={sub.id} value={sub.id}>{sub.name} ({sub.category_title})</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">اسم المنتج / Name</label>
-              <input
-                type="text"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">العنوان / Title</label>
-              <input
-                type="text"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">السعر / Price (EGP)</label>
-              <input
-                type="number"
-                step="0.01"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">المخزون / Stock</label>
-              <input
-                type="number"
-                required
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                value={formData.stock}
-                onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-              />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الوصف / Description</label>
-              <textarea
-                className="w-full px-5 py-3.5 bg-surface-container/50 border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none h-32 resize-none transition-all"
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              ></textarea>
-            </div>
-            {!editingProd && (
-              <>
-                <div>
-                  <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الرئيسية / Main Image</label>
-                  <div className="relative group">
+        <form onSubmit={handleSubmit} className="flex flex-col min-h-0 flex-grow overflow-hidden">
+          <div className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow min-h-0 custom-scrollbar">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">القسم الفرعي / Subcategory</label>
+                <div className="relative">
+                  <select
+                    required
+                    className="w-full appearance-none px-5 py-3.5 pr-12 bg-white border-2 border-primary/20 rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/40 outline-none transition-all cursor-pointer hover:border-primary/30"
+                    value={formData.subcategory_id}
+                    onChange={(e) => setFormData({ ...formData, subcategory_id: e.target.value })}
+                  >
+                    {subcategories.map(sub => (
+                      <option key={sub.id} value={sub.id}>{sub.name} ({sub.category_title})</option>
+                    ))}
+                  </select>
+                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 pointer-events-none text-lg">expand_more</span>
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">اسم المنتج / Name</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">العنوان / Title</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">السعر / Price (EGP)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">المخزون / Stock</label>
+                <input
+                  type="number"
+                  required
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  value={formData.stock}
+                  onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الوصف / Description</label>
+                <textarea
+                  className="w-full px-5 py-3.5 bg-white border border-surface-container rounded-2xl text-primary font-bold focus:ring-2 focus:ring-primary/20 outline-none h-32 resize-none transition-all"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                ></textarea>
+              </div>
+              {!editingProd && (
+                <>
+                  <div>
+                    <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الرئيسية / Main Image</label>
+                    <div className="relative group">
+                      <input
+                        type="file"
+                        required
+                        className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
+                        onChange={(e) => setFormData({ ...formData, main_image: e.target.files[0] })}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الثانية / Secondary Image</label>
                     <input
                       type="file"
-                      required
                       className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
-                      onChange={(e) => setFormData({ ...formData, main_image: e.target.files[0] })}
+                      onChange={(e) => setFormData({ ...formData, sec_image: e.target.files[0] })}
                     />
                   </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الثانية / Secondary Image</label>
-                  <input
-                    type="file"
-                    className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
-                    onChange={(e) => setFormData({ ...formData, sec_image: e.target.files[0] })}
-                  />
-                </div>
-              </>
-            )}
-            <div className="md:col-span-2 flex items-center gap-3 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-              <input
-                type="checkbox"
-                id="is_active"
-                checked={formData.is_active}
-                onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                className="w-5 h-5 accent-primary rounded-lg cursor-pointer"
-              />
-              <label htmlFor="is_active" className="text-sm font-black text-primary cursor-pointer select-none">منتج مفعل / Active Product</label>
+                </>
+              )}
+              <div className="md:col-span-2 flex items-center gap-3 bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                <input
+                  type="checkbox"
+                  id="is_active"
+                  checked={formData.is_active}
+                  onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                  className="w-5 h-5 accent-primary rounded-lg cursor-pointer"
+                />
+                <label htmlFor="is_active" className="text-sm font-black text-primary cursor-pointer select-none">منتج مفعل / Active Product</label>
+              </div>
             </div>
           </div>
-          <div className="pt-6 flex gap-4 sticky bottom-0 bg-white">
+          <div className="p-5 md:p-6 border-t border-surface-container flex flex-col-reverse sm:flex-row gap-3 bg-white flex-shrink-0">
             <button 
               type="button" 
               onClick={handleCloseModal} 
-              className="flex-1 px-6 py-4 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all"
+              className="flex-1 px-6 py-3.5 border border-surface-container rounded-2xl text-primary font-black hover:bg-surface-container transition-all text-sm md:text-base"
             >
               إلغاء / Cancel
             </button>
             <button 
               type="submit" 
               disabled={isSubmitting} 
-              className="flex-2 px-6 py-4 bg-primary text-white rounded-2xl font-black text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
+              className="flex-1 sm:flex-2 px-6 py-3.5 bg-primary text-white rounded-2xl font-black text-sm md:text-lg hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
             >
               {isSubmitting ? 'جاري الحفظ...' : 'حفظ المنتج / Save Product'}
             </button>
