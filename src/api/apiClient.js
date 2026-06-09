@@ -4,7 +4,7 @@ const baseURL = '/api-proxy';
 
 const apiClient = axios.create({
   baseURL,
-  timeout: 10000,
+  timeout: 60000, // Increased from 10000ms to 60000ms to allow image uploads to complete
   headers: { 'Content-Type': 'application/json' }
 });
 

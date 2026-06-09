@@ -69,7 +69,8 @@ const ManageSubcategories = () => {
       fetchData();
       handleCloseModal();
     } catch (err) {
-      alert('Operation failed.');
+      console.error('Subcategory creation error:', err);
+      alert('Operation failed. Please try again. Error: ' + (err?.response?.data?.message || err?.message || JSON.stringify(err)));
     } finally {
       setIsSubmitting(false);
     }

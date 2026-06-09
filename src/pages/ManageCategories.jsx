@@ -62,7 +62,8 @@ const ManageCategories = () => {
       fetchCategories();
       handleCloseModal();
     } catch (err) {
-      alert('Operation failed. Please try again.');
+      console.error('Category creation error:', err);
+      alert('Operation failed. Please try again. Error: ' + (err?.response?.data?.message || err?.message || JSON.stringify(err)));
     } finally {
       setIsSubmitting(false);
     }
