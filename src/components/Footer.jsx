@@ -12,7 +12,7 @@ const socials = [
 ]
 
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/images/logo.png'
+import logo from '../assets/images/logo-footer.png'
 
 export default function Footer() {
   const navigate = useNavigate()
