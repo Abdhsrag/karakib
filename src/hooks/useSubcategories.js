@@ -18,7 +18,7 @@ export const useSubcategories = (categoryId) => {
       setSubcategories(adaptedData);
     } catch (err) {
       console.error('Error fetching subcategories:', err);
-      setError(err.message || 'حدث خطأ أثناء جلب الأقسام الفرعية');
+      setError(err.parsedMessage || 'حدث خطأ أثناء جلب الأقسام الفرعية');
       setSubcategories([]);
     } finally {
       setLoading(false);

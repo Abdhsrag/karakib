@@ -16,7 +16,7 @@ export const useCategories = () => {
       setCategories(adaptedData);
     } catch (err) {
       console.error('Error fetching categories:', err);
-      setError(err.message || 'حدث خطأ أثناء جلب الأقسام');
+      setError(err.parsedMessage || 'حدث خطأ أثناء جلب الأقسام');
       setCategories([]);
     } finally {
       setLoading(false);

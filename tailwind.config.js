@@ -78,17 +78,16 @@ export default {
         unit:            "4px"
       },
       fontFamily: {
-        // Modern clean fonts
         sans:          ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
-        display:       ["'Marhey'", "'Cairo'", "sans-serif"],
-        heading:       ["'Marhey'", "'Cairo'", "sans-serif"],
-        body:          ["'Poppins'", "sans-serif"],
-        "display-lg":  ["'Marhey'", "'Cairo'", "sans-serif"],
-        "headline-md": ["'Marhey'", "'Cairo'", "sans-serif"],
-        "title-sm":    ["'Marhey'", "'Cairo'", "sans-serif"],
-        "body-rg":     ["'Poppins'", "sans-serif"],
-        "label-xs":    ["'Poppins'", "sans-serif"],
-        marhey:        ["'Marhey'", "sans-serif"]
+        display:       ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        heading:       ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        body:          ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        "display-lg":  ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        "headline-md": ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        "title-sm":    ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        "body-rg":     ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        "label-xs":    ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"],
+        marhey:        ["'Marhey'", "'Cairo'", "system-ui", "sans-serif"]
       },
       fontSize: {
         "display-lg":  ["3.25rem",  { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],

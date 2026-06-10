@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCart } from '../context/CartContext'
 import { getProductById } from '../api/services/productService'
 import { createOrder } from '../api/services/orderService'
 import { adaptProduct } from '../adapters/productAdapter'
+import { parseApiError } from '../utils/errorParser'
 
 export default function ProductDetailModal({ product: initialProduct, onClose }) {
   const [product, setProduct] = useState(initialProduct)
@@ -23,10 +24,10 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
         const adapted = adaptProduct(data)
         setProduct(adapted)
         setSelectedImage(adapted.image)
-      } catch (err) {
-        console.error('Failed to fetch product details:', err)
-        // fallback to initial product if fetch fails
-      } finally {
+    } catch (err) {
+      console.error('Failed to fetch product details:', err)
+      setProduct(initialProduct)
+    } finally {
         setLoading(false)
       }
     }
@@ -41,6 +42,8 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
     notes: ''
   })
   const [orderStatus, setOrderStatus] = useState(null) // 'submitting', 'success', 'error'
+  const [orderError, setOrderError] = useState(null)
+  const orderContentRef = useRef(null)
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault()
@@ -55,6 +58,10 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
     } catch (err) {
       console.error(err)
       setOrderStatus('error')
+      setOrderError(parseApiError(err))
+      if (orderContentRef.current) {
+        orderContentRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+      }
     }
   }
 
@@ -114,7 +121,6 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
               جاري التحميل...
             </div>
           ) : view === 'details' ? (
-            // --- DETAILS VIEW ---
             <>
               <div className="space-y-6">
                 <div>
@@ -187,7 +193,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
             </>
           ) : (
             // --- DIRECT ORDER VIEW ---
-            <div className="flex-1 flex flex-col h-full">
+            <div ref={orderContentRef} className="flex-1 flex flex-col h-full">
               <div className="flex items-center gap-3 mb-6">
                 <button onClick={() => setView('details')} className="text-on-surface-variant hover:text-primary flex items-center justify-center">
                   <span className="material-symbols-outlined rtl:rotate-180">arrow_back</span>
@@ -251,7 +257,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
                       />
                     </div>
                     {orderStatus === 'error' && (
-                      <p className="text-error text-sm">حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى.</p>
+                      <p className="text-error text-sm">{orderError || 'حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى.'}</p>
                     )}
                   </div>
                   

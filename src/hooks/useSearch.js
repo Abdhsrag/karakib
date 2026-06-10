@@ -21,7 +21,7 @@ export const useSearch = (query) => {
       setProducts(adaptedData);
     } catch (err) {
       console.error('Error searching products:', err);
-      setError('حدث خطأ أثناء البحث، يرجى المحاولة مرة أخرى.');
+      setError(err.parsedMessage || 'حدث خطأ أثناء البحث، يرجى المحاولة مرة أخرى.');
       setProducts([]);
     } finally {
       setLoading(false);

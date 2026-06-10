@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as adminProductService from '../api/services/adminProductService';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import Modal from '../components/Modal';
+import { useToast } from '../components/Toast';
+import { useConfirm } from '../components/ConfirmDialog';
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -21,6 +23,8 @@ const ManageProducts = () => {
     sec_image: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const showToast = useToast();
+  const confirm = useConfirm();
 
   useEffect(() => {
     fetchData();
@@ -37,6 +41,7 @@ const ManageProducts = () => {
       setSubcategories(subs);
     } catch (err) {
       console.error('Failed to fetch products', err);
+      showToast(err.parsedMessage || 'Failed to fetch products', 'error');
     } finally {
       setLoading(false);
     }
@@ -92,6 +97,9 @@ const ManageProducts = () => {
           stock: parseInt(formData.stock),
           is_active: formData.is_active
         });
+        if (formData.main_image || formData.sec_image) {
+          await adminProductService.updateProductImages(editingProd.id, formData.main_image, formData.sec_image);
+        }
       } else {
         const data = new FormData();
         Object.keys(formData).forEach(key => {
@@ -105,20 +113,26 @@ const ManageProducts = () => {
       handleCloseModal();
     } catch (err) {
       console.error('Product creation error:', err);
-      alert('Operation failed. Please try again. Error: ' + (err?.response?.data?.message || err?.message || JSON.stringify(err)));
+      showToast(err.parsedMessage || 'Operation failed', 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      try {
-        await adminProductService.deleteProduct(id);
-        fetchData();
-      } catch (err) {
-        alert('Delete failed.');
-      }
+    const confirmed = await confirm({
+      title: 'حذف المنتج / Delete Product',
+      message: 'هل أنت متأكد من حذف هذا المنتج؟ / Are you sure you want to delete this product?',
+      confirmText: 'حذف / Delete',
+      cancelText: 'إلغاء / Cancel',
+    });
+    if (!confirmed) return;
+    try {
+      await adminProductService.deleteProduct(id);
+      fetchData();
+      showToast('تم الحذف بنجاح / Deleted successfully', 'success');
+    } catch (err) {
+      showToast(err.parsedMessage || 'Delete failed.', 'error');
     }
   };
 
@@ -285,28 +299,45 @@ const ManageProducts = () => {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 ></textarea>
               </div>
-              {!editingProd && (
-                <>
-                  <div>
-                    <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الرئيسية / Main Image</label>
-                    <div className="relative group">
-                      <input
-                        type="file"
-                        required
-                        className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
-                        onChange={(e) => setFormData({ ...formData, main_image: e.target.files[0] })}
-                      />
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الرئيسية / Main Image</label>
+                {editingProd && editingProd.main_img_url && (
+                  <div className="mb-3 flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-surface-container">
+                    <img src={editingProd.main_img_url} alt="Current Main" className="h-16 w-16 object-cover rounded-xl border border-surface-container" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-primary/40 uppercase tracking-widest">الصورة الحالية / Current Main Image</span>
+                      <span className="text-xs text-primary/60 font-bold truncate max-w-[150px]">{editingProd.main_img_url.split('/').pop()}</span>
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الثانية / Secondary Image</label>
-                    <input
-                      type="file"
-                      className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
-                      onChange={(e) => setFormData({ ...formData, sec_image: e.target.files[0] })}
-                    />
+                )}
+                <input
+                  type="file"
+                  required={!editingProd}
+                  className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
+                  onChange={(e) => setFormData({ ...formData, main_image: e.target.files[0] })}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة الثانية / Secondary Image</label>
+                {editingProd && editingProd.sec_img_url && (
+                  <div className="mb-3 flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-surface-container">
+                    <img src={editingProd.sec_img_url} alt="Current Secondary" className="h-16 w-16 object-cover rounded-xl border border-surface-container" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-primary/40 uppercase tracking-widest">الصورة الحالية / Current Sec Image</span>
+                      <span className="text-xs text-primary/60 font-bold truncate max-w-[150px]">{editingProd.sec_img_url.split('/').pop()}</span>
+                    </div>
                   </div>
-                </>
+                )}
+                <input
+                  type="file"
+                  className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
+                  onChange={(e) => setFormData({ ...formData, sec_image: e.target.files[0] })}
+                />
+              </div>
+              {editingProd && (
+                <div className="md:col-span-2 text-[10px] text-primary/40 font-bold">
+                  * اترك حقول الصور فارغة للحفاظ على الصور الحالية / Leave image fields empty to keep current images.
+                </div>
               )}
               <div className="md:col-span-2 flex items-center gap-3 bg-transparent p-4 rounded-2xl border border-surface-container-high">
                 <input

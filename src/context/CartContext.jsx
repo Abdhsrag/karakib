@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { parsePrice } from '../utils/priceParser';
 
 const CartContext = createContext();
 
@@ -48,13 +49,7 @@ export function CartProvider({ children }) {
   const closeCart = () => setIsCartOpen(false);
 
   const cartTotal = cartItems.reduce((total, item) => {
-    // Attempt to parse price if it's a string like "١,٢٠٠" or just use item.price
-    let numericPrice = item.price;
-    if (typeof numericPrice === 'string') {
-      // Very basic parser for Arabic/formatted numbers, if API returns strings
-      numericPrice = parseFloat(numericPrice.replace(/[^\d.]/g, '')) || 0;
-    }
-    return total + (numericPrice * item.quantity);
+    return total + (parsePrice(item.price) * item.quantity);
   }, 0);
 
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);

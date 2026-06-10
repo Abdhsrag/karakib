@@ -13,6 +13,10 @@ export default function SearchPage() {
   const [localQuery, setLocalQuery] = useState(query)
   const { products, loading, error } = useSearch(query)
   const { addToCart } = useCart()
+
+  useEffect(() => {
+    if (error) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [error])
   const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import * as adminOrderService from '../api/services/adminOrderService';
+import { useToast } from '../components/Toast';
 import logo from '../assets/images/logo.png';
 
 const AdminLayout = () => {
@@ -8,6 +10,28 @@ const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
+  const showToast = useToast();
+
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return;
+
+    const fetchPendingOrdersCount = async () => {
+      try {
+        const orders = await adminOrderService.listOrders();
+        const pending = orders.filter(order => order.status === 'pending').length;
+        setPendingCount(pending);
+      } catch (err) {
+        console.error('Failed to fetch pending orders count', err);
+        showToast(err.parsedMessage || 'Failed to load pending orders', 'error');
+      }
+    };
+
+    fetchPendingOrdersCount();
+    const interval = setInterval(fetchPendingOrdersCount, 30000); // Poll every 30 seconds
+    return () => clearInterval(interval);
+  }, [location.pathname]);
 
   const handleLogout = async () => {
     await logout();
@@ -48,10 +72,17 @@ const AdminLayout = () => {
                     }`}
                 >
                   <span className={`material-symbols-outlined ${isActive ? 'fill-1' : ''}`}>{item.icon}</span>
-                  <div className="flex flex-col items-start leading-none text-right">
+                  <div className="flex flex-col items-start leading-none text-right flex-1">
                     <span className="text-sm font-heading">{item.labelAr}</span>
                     <span className="text-[10px] uppercase tracking-widest opacity-50">{item.name}</span>
                   </div>
+                  {item.name === 'Orders' && pendingCount > 0 && (
+                    <span className={`min-w-[1.25rem] h-5 px-1.5 rounded-full flex items-center justify-center text-[10px] font-black animate-pulse ${
+                      isActive ? 'bg-error text-white shadow-sm' : 'bg-white text-primary shadow-md'
+                    }`}>
+                      {pendingCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -97,6 +128,22 @@ const AdminLayout = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            {/* Notification Bell */}
+            <Link
+              to="/admin/orders"
+              className="relative w-11 h-11 rounded-2xl bg-surface-container/60 hover:bg-primary/5 text-primary flex items-center justify-center transition-all border border-surface-container-highest/20 group"
+              title={`${pendingCount} طلبات معلقة / Pending Orders`}
+            >
+              <span className={`material-symbols-outlined text-[1.3rem] ${pendingCount > 0 ? 'animate-bounce' : ''}`}>
+                notifications
+              </span>
+              {pendingCount > 0 && (
+                <span className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-error text-white text-[9px] font-black flex items-center justify-center border-2 border-white shadow-md">
+                  {pendingCount}
+                </span>
+              )}
+            </Link>
+
             <div className="hidden md:text-left md:block">
               <p className="text-sm font-black text-primary leading-none mb-1">{admin?.username}</p>
               <p className="text-[10px] text-primary/40 uppercase tracking-widest font-bold">System Administrator</p>

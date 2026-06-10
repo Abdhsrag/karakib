@@ -107,7 +107,7 @@ export default function CategoriesGrid() {
       })
     : (error ? fallbackCategories : [])
 
-  const errorMsg = error?.message || (rawCategories.length === 0 && !loading && !error ? 'API returned empty' : null)
+  const displayError = error || (rawCategories.length === 0 && !loading ? 'لا توجد أقسام متاحة حالياً' : null)
 
   if (loading) {
     return (
@@ -120,10 +120,12 @@ export default function CategoriesGrid() {
     );
   }
 
-  if (errorMsg) {
+  if (displayError) {
     return (
       <div className="flex flex-col justify-center items-center py-20 min-h-[400px]">
-        <h2 className="text-error text-xl font-bold mb-4">Error loading API: {errorMsg}</h2>
+        <div className="bg-error/10 border border-error/20 text-error px-6 py-4 rounded-2xl text-xs font-bold mb-8 max-w-lg text-center">
+          {displayError}
+        </div>
       <div className="grid gap-8 grid-cols-1 md:grid-cols-3 w-full">
         {categories.map((cat) => (
           <CategoryCard key={cat.id} {...cat} />

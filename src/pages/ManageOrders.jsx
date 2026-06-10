@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as adminOrderService from '../api/services/adminOrderService';
 import Modal from '../components/Modal';
+import { useToast } from '../components/Toast';
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,6 +11,7 @@ const ManageOrders = () => {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [statusData, setStatusData] = useState({ status: 'pending', actionTaken: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const showToast = useToast();
 
   useEffect(() => {
     fetchOrders();
@@ -22,6 +24,7 @@ const ManageOrders = () => {
       setOrders(data);
     } catch (err) {
       console.error('Failed to fetch orders', err);
+      showToast(err.parsedMessage || 'Failed to fetch orders', 'error');
     } finally {
       setLoading(false);
     }
@@ -33,7 +36,7 @@ const ManageOrders = () => {
       setSelectedOrder(details);
       setIsDetailsModalOpen(true);
     } catch (err) {
-      alert('Failed to fetch order details.');
+      showToast(err.parsedMessage || 'Failed to fetch order details.', 'error');
     }
   };
 
@@ -51,7 +54,7 @@ const ManageOrders = () => {
       fetchOrders();
       setIsStatusModalOpen(false);
     } catch (err) {
-      alert('Update failed.');
+      showToast(err.parsedMessage || 'Update failed.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -185,17 +188,31 @@ const ManageOrders = () => {
               <div>
                 <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4 border-b border-surface-container pb-2">المنتجات المطلوبة / Items Ordered</h4>
                 <div className="space-y-4">
-                  {selectedOrder.items?.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center bg-transparent p-4 rounded-2xl border border-surface-container-high">
-                      <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xs">
-                          x{item.quantity}
+                  {selectedOrder.items?.map((item, idx) => {
+                    const price = item.unit_price || item.price_at_order || 0;
+                    return (
+                      <div key={idx} className="flex justify-between items-center bg-transparent p-4 rounded-2xl border border-surface-container-high">
+                        <div className="flex items-center gap-4">
+                          {item.main_img_url ? (
+                            <div className="h-16 w-16 rounded-2xl overflow-hidden border border-surface-container shadow-sm flex-shrink-0">
+                              <img src={item.main_img_url} alt={item.product_title || item.product_name} className="h-full w-full object-cover" />
+                            </div>
+                          ) : (
+                            <div className="h-16 w-16 rounded-2xl bg-primary/5 flex items-center justify-center text-primary/40 border border-surface-container flex-shrink-0">
+                              <span className="material-symbols-outlined text-2xl">image</span>
+                            </div>
+                          )}
+                          <div className="flex flex-col">
+                            <span className="font-bold text-primary text-sm">{item.product_title || item.product_name}</span>
+                            <span className="text-[10px] text-on-background/40 font-bold uppercase tracking-widest mt-1">
+                              الكمية / Qty: {item.quantity} × {price} ج.م
+                            </span>
+                          </div>
                         </div>
-                        <p className="font-bold text-primary">{item.product_name}</p>
+                        <span className="font-black text-primary text-lg">{price * item.quantity} ج.م</span>
                       </div>
-                      <p className="font-black text-primary text-lg">{item.price_at_order * item.quantity} ج.م</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

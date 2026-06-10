@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as adminCouponService from '../api/services/adminCouponService';
 import Modal from '../components/Modal';
+import { useToast } from '../components/Toast';
+import { useConfirm } from '../components/ConfirmDialog';
 
 const ManageCoupons = () => {
   const [coupons, setCoupons] = useState([]);
@@ -17,6 +19,8 @@ const ManageCoupons = () => {
     expires_at: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const showToast = useToast();
+  const confirm = useConfirm();
 
   useEffect(() => {
     fetchCoupons();
@@ -29,6 +33,7 @@ const ManageCoupons = () => {
       setCoupons(data);
     } catch (err) {
       console.error('Failed to fetch coupons', err);
+      showToast(err.parsedMessage || 'Failed to fetch coupons', 'error');
     } finally {
       setLoading(false);
     }
@@ -86,20 +91,26 @@ const ManageCoupons = () => {
       fetchCoupons();
       handleCloseModal();
     } catch (err) {
-      alert('Operation failed.');
+      showToast(err.parsedMessage || 'Operation failed.', 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this coupon?')) {
-      try {
-        await adminCouponService.deleteCoupon(id);
-        fetchCoupons();
-      } catch (err) {
-        alert('Delete failed.');
-      }
+    const confirmed = await confirm({
+      title: 'حذف الكوبون / Delete Coupon',
+      message: 'هل أنت متأكد من حذف هذا الكوبون؟ / Are you sure you want to delete this coupon?',
+      confirmText: 'حذف / Delete',
+      cancelText: 'إلغاء / Cancel',
+    });
+    if (!confirmed) return;
+    try {
+      await adminCouponService.deleteCoupon(id);
+      fetchCoupons();
+      showToast('تم الحذف بنجاح / Deleted successfully', 'success');
+    } catch (err) {
+      showToast(err.parsedMessage || 'Delete failed.', 'error');
     }
   };
 

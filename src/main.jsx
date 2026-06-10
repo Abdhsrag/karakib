@@ -4,11 +4,20 @@ import './index.css'
 import App from './App.jsx'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { CartProvider } from './context/CartContext.jsx'
+import { ToastProvider } from './components/Toast.jsx'
+import { ConfirmProvider } from './components/ConfirmDialog.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <ErrorBoundary>
+      <ToastProvider>
+        <ConfirmProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ConfirmProvider>
+      </ToastProvider>
+    </ErrorBoundary>
   </StrictMode>,
 )

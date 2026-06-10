@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -11,8 +12,12 @@ export default function ProductsPage() {
   const { products, loading, error } = useProducts(subcategoryId)
   const { addToCart } = useCart()
 
+  useEffect(() => {
+    if (error) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [error])
+
   return (
-    <div className="text-on-background font-body-rg text-body-rg min-h-screen flex flex-col antialiased">
+    <div className="text-on-background min-h-screen flex flex-col antialiased">
       <Header />
       
       <main className="flex-1 flex flex-col">

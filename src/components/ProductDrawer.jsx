@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useCart } from '../context/CartContext';
+import { parsePrice } from '../utils/priceParser';
 
 export default function ProductDrawer({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);
@@ -117,7 +118,7 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
             <div className="flex-1 text-left">
                <span className="text-[10px] font-bold text-primary/50 uppercase tracking-widest block mb-1">الإجمالي / Subtotal</span>
                <span className="font-black text-primary text-2xl">
-                  {(parseFloat(String(product.price).replace(/[^0-9]/g, '')) * quantity).toLocaleString()} ج.م
+                  {(parsePrice(product.price) * quantity).toLocaleString()} ج.م
                </span>
             </div>
           </div>

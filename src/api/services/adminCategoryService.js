@@ -18,6 +18,15 @@ export const updateCategory = async (id, data) => {
   return response.data;
 };
 
+export const updateCategoryImage = async (id, file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  const response = await apiClient.put(`/admin/categories/${id}/image`, formData, {
+    headers: { 'Content-Type': undefined }
+  });
+  return response.data;
+};
+
 export const deleteCategory = async (id) => {
   const response = await apiClient.delete(`/admin/categories/${id}`);
   return response.data;
@@ -38,6 +47,15 @@ export const createSubcategory = async (formData) => {
 
 export const updateSubcategory = async (id, data) => {
   const response = await apiClient.patch(`/admin/subcategories/${id}`, data);
+  return response.data;
+};
+
+export const updateSubcategoryImage = async (id, file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  const response = await apiClient.put(`/admin/subcategories/${id}/image`, formData, {
+    headers: { 'Content-Type': undefined }
+  });
   return response.data;
 };
 

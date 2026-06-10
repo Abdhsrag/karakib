@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import * as adminProductService from '../api/services/adminProductService';
 import * as adminOrderService from '../api/services/adminOrderService';
+import { useToast } from '../components/Toast';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
   });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const showToast = useToast();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -31,6 +33,7 @@ const AdminDashboard = () => {
         });
       } catch (err) {
         console.error('Failed to fetch dashboard stats', err);
+        showToast(err.parsedMessage || 'Failed to load dashboard data', 'error');
       } finally {
         setLoading(false);
       }

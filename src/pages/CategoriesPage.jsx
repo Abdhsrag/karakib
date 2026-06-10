@@ -6,7 +6,7 @@ import BottomNavBar from '../components/BottomNavBar'
 
 export default function CategoriesPage({ onNavigate, currentPage }) {
   return (
-    <div className="text-on-background font-body-rg text-body-rg min-h-screen flex flex-col antialiased">
+    <div className="text-on-background min-h-screen flex flex-col antialiased">
       <Header currentPage={currentPage} onNavigate={onNavigate} />
       
       <main className="flex-grow">

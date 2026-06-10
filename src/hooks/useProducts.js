@@ -21,7 +21,7 @@ export const useProducts = (subcategoryId) => {
       setProducts(adaptedData);
     } catch (err) {
       console.error('Error fetching products:', err);
-      setError(err.message || 'Error fetching products');
+      setError(err.parsedMessage || 'Error fetching products');
       setProducts([]);
     } finally {
       setLoading(false);

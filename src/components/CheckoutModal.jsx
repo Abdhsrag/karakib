@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { createOrder } from '../api/services/orderService';
+import { parseApiError } from '../utils/errorParser';
 
 export default function CheckoutModal({ isOpen, onClose, couponCode }) {
   const { cartItems, clearCart } = useCart();
@@ -13,6 +14,13 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    if (error && formRef.current) {
+      formRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [error]);
 
   if (!isOpen) return null;
 
@@ -53,12 +61,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
         const allErrors = Object.values(responseData.errors).flat().join(' | ');
         setError(allErrors);
       } else {
-        setError(
-          responseData?.message ||
-          (typeof responseData === 'string' ? responseData : null) ||
-          err.message ||
-          'حدث خطأ أثناء إرسال الطلب'
-        );
+        setError(parseApiError(err));
       }
     } finally {
       setLoading(false);
@@ -104,7 +107,7 @@ export default function CheckoutModal({ isOpen, onClose, couponCode }) {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 md:p-8 space-y-5 min-h-0">
+        <form ref={formRef} onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 md:p-8 space-y-5 min-h-0">
 
           {error && (
             <div className="bg-error-container text-error p-4 rounded-xl text-sm font-semibold">

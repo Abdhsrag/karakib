@@ -17,6 +17,16 @@ export const updateProduct = async (id, data) => {
   return response.data;
 };
 
+export const updateProductImages = async (id, mainImage, secImage) => {
+  const formData = new FormData();
+  if (mainImage) formData.append('main_image', mainImage);
+  if (secImage) formData.append('sec_image', secImage);
+  const response = await apiClient.put(`/admin/products/${id}/image`, formData, {
+    headers: { 'Content-Type': undefined }
+  });
+  return response.data;
+};
+
 export const deleteProduct = async (id) => {
   const response = await apiClient.delete(`/admin/products/${id}`);
   return response.data;

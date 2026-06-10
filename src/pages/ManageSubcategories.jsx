@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import Modal from '../components/Modal';
+import { useToast } from '../components/Toast';
+import { useConfirm } from '../components/ConfirmDialog';
 
 const ManageSubcategories = () => {
   const [subcategories, setSubcategories] = useState([]);
@@ -10,6 +12,8 @@ const ManageSubcategories = () => {
   const [editingSub, setEditingSub] = useState(null);
   const [formData, setFormData] = useState({ category_id: '', name: '', title: '', image: null });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const showToast = useToast();
+  const confirm = useConfirm();
 
   useEffect(() => {
     fetchData();
@@ -26,6 +30,7 @@ const ManageSubcategories = () => {
       setCategories(cats);
     } catch (err) {
       console.error('Failed to fetch subcategories', err);
+      showToast(err.parsedMessage || 'Failed to fetch subcategories', 'error');
     } finally {
       setLoading(false);
     }
@@ -58,6 +63,9 @@ const ManageSubcategories = () => {
           name: formData.name,
           title: formData.title
         });
+        if (formData.image) {
+          await adminCategoryService.updateSubcategoryImage(editingSub.id, formData.image);
+        }
       } else {
         const data = new FormData();
         data.append('category_id', formData.category_id);
@@ -70,20 +78,26 @@ const ManageSubcategories = () => {
       handleCloseModal();
     } catch (err) {
       console.error('Subcategory creation error:', err);
-      alert('Operation failed. Please try again. Error: ' + (err?.response?.data?.message || err?.message || JSON.stringify(err)));
+      showToast(err.parsedMessage || 'Operation failed', 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this subcategory?')) {
-      try {
-        await adminCategoryService.deleteSubcategory(id);
-        fetchData();
-      } catch (err) {
-        alert('Delete failed.');
-      }
+    const confirmed = await confirm({
+      title: 'حذف القسم الفرعي / Delete Subcategory',
+      message: 'هل أنت متأكد من حذف هذا القسم الفرعي؟ / Are you sure you want to delete this subcategory?',
+      confirmText: 'حذف / Delete',
+      cancelText: 'إلغاء / Cancel',
+    });
+    if (!confirmed) return;
+    try {
+      await adminCategoryService.deleteSubcategory(id);
+      fetchData();
+      showToast('تم الحذف بنجاح / Deleted successfully', 'success');
+    } catch (err) {
+      showToast(err.parsedMessage || 'Delete failed.', 'error');
     }
   };
 
@@ -206,17 +220,27 @@ const ManageSubcategories = () => {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 />
               </div>
-              {!editingSub && (
-                <div>
-                  <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة / Image</label>
-                  <input
-                    type="file"
-                    required
-                    className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
-                    onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-                  />
-                </div>
-              )}
+              <div>
+                <label className="block text-[10px] font-black text-primary uppercase tracking-widest mb-2 ml-1">الصورة / Image</label>
+                {editingSub && editingSub.img_url && (
+                  <div className="mb-3 flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-surface-container">
+                    <img src={editingSub.img_url} alt="Current Subcategory" className="h-16 w-16 object-cover rounded-xl border border-surface-container" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-primary/40 uppercase tracking-widest">الصورة الحالية / Current Image</span>
+                      <span className="text-xs text-primary/60 font-bold truncate max-w-[200px]">{editingSub.img_url.split('/').pop()}</span>
+                    </div>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  required={!editingSub}
+                  className="w-full text-xs text-primary/40 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-all"
+                  onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                />
+                {editingSub && (
+                  <span className="text-[10px] text-primary/40 block mt-1 font-bold">اتركه فارغاً للحفاظ على الصورة الحالية / Leave empty to keep current image</span>
+                )}
+              </div>
             </div>
           </div>
           <div className="p-5 md:p-6 border-t border-surface-container flex flex-col-reverse sm:flex-row gap-3 bg-white flex-shrink-0">
