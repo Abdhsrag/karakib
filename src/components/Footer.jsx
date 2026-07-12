@@ -135,7 +135,7 @@ export default function Footer() {
             <span className="material-symbols-outlined text-lg text-red-500 animate-pulse">favorite</span>
             <span className="opacity-60">by</span>
             <a 
-              href="https://nova-4solutions.vercel.app" 
+              href="https://www.nova-solution.net/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-white hover:text-secondary transition-all text-xl font-black tracking-tighter"
