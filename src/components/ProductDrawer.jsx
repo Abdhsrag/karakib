@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useCart } from '../context/CartContext';
 import { parsePrice } from '../utils/priceParser';
@@ -6,6 +6,47 @@ import { parsePrice } from '../utils/priceParser';
 export default function ProductDrawer({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  
+  // Collect images dynamically (handles 2, 3, or more images if available)
+  const images = (() => {
+    if (!product) return [];
+    
+    // Use a Set to avoid duplicate images
+    const imgSet = new Set();
+    
+    const mainImg = product.image || product.main_img_url || product.img;
+    if (mainImg) imgSet.add(mainImg);
+    
+    const secImg = product.sec_image || product.sec_img_url;
+    if (secImg) imgSet.add(secImg);
+    
+    // Support if the backend adds an array of additional images in the future
+    if (Array.isArray(product.images)) {
+      product.images.forEach(img => {
+        if (typeof img === 'string') imgSet.add(img);
+        else if (img?.url) imgSet.add(img.url); // In case it's an object
+      });
+    }
+    
+    return Array.from(imgSet).filter(Boolean);
+  })();
+    
+  const [selectedImage, setSelectedImage] = useState(images[0]);
+
+  // Auto-slideshow for images
+  useEffect(() => {
+    if (images.length <= 1 || !isOpen) return;
+
+    const intervalId = setInterval(() => {
+      setSelectedImage((current) => {
+        const currentIndex = images.indexOf(current || images[0]);
+        const nextIndex = (currentIndex + 1) % images.length;
+        return images[nextIndex];
+      });
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [images.length, isOpen]); // Using stringified array or length is enough
 
   if (!product) return null;
 
@@ -26,8 +67,8 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
 
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white z-[9999] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white z-[9999] transform transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${
+          isOpen ? 'translate-x-0 shadow-2xl opacity-100' : 'translate-x-full shadow-none opacity-0 pointer-events-none'
         }`}
       >
         {/* Header */}
@@ -49,10 +90,39 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
           {/* Main Image */}
           <div className="relative w-full aspect-[4/5] bg-surface-container overflow-hidden">
             <img
-              src={product.image || product.main_img_url || product.img}
+              src={selectedImage || images[0]}
               alt={product.title || product.name}
               className="w-full h-full object-cover"
             />
+            
+            {/* Image Thumbnails */}
+            {images.length > 1 && (
+              <div className="absolute top-6 right-6 flex flex-col gap-3 z-10 max-h-[70vh] overflow-y-auto p-1 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <style>{`
+                  .absolute.top-6.right-6::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
+                {images.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(img)}
+                    className={`outline-none focus:outline-none shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${
+                      (selectedImage || images[0]) === img
+                        ? 'border-2 border-white scale-110 opacity-100 shadow-lg'
+                        : 'border-2 border-white/50 opacity-60 hover:opacity-100 scale-95 hover:scale-100'
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`view ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+            
             {/* Price Tag Floating */}
             <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-xl border border-white/50">
               <span className="font-black text-primary text-2xl">

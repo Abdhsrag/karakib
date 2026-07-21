@@ -1,8 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import SideNavBar from '../components/category/SideNavbar'
 import CategoriesGrid from '../components/category/CategoriesGrid'
-import BottomNavBar from '../components/BottomNavBar'
 
 export default function CategoriesPage({ onNavigate, currentPage }) {
   return (

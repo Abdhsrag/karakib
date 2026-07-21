@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as adminOrderService from '../api/services/adminOrderService';
 import Modal from '../components/Modal';
 import { useToast } from '../components/Toast';
@@ -13,10 +13,6 @@ const ManageOrders = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const showToast = useToast();
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -29,6 +25,13 @@ const ManageOrders = () => {
       setLoading(false);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    fetchOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const handleOpenDetails = async (order) => {
     try {

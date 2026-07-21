@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import * as adminProductService from '../api/services/adminProductService';

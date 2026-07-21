@@ -56,7 +56,7 @@ export default function SubCategoryPage() {
               <p className="text-on-surface-variant font-title-sm">لا توجد أقسام فرعية متاحة حالياً</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {subcategories.map((sub) => (
                 <div
                   key={sub.id}
@@ -75,8 +75,8 @@ export default function SubCategoryPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="p-6 text-center">
-                    <h3 className="font-inherit text-xl font-bold text-on-background group-hover:text-accent transition-colors">
+                  <div className="p-4 md:p-6 text-center">
+                    <h3 className="font-inherit text-sm md:text-xl font-bold text-on-background group-hover:text-accent transition-colors line-clamp-1">
                       {sub.title}
                     </h3>
                   </div>

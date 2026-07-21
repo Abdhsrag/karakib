@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import * as adminOrderService from '../api/services/adminOrderService';
 import { useToast } from '../components/Toast';
-import logo from '../assets/images/logo.png';
 
 const AdminLayout = () => {
   const { logout, admin } = useAuth();

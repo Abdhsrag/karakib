@@ -1,18 +1,8 @@
 import { useState } from 'react'
 import ProductDrawer from '../ProductDrawer'
 
-export default function ProductCard({ product, onAddToCart, onAddToFavorites }) {
+export default function ProductCard({ product, onAddToCart }) {
   const [showDrawer, setShowDrawer] = useState(false)
-  const [isFavorited, setIsFavorited] = useState(product.isFavorited || false)
-
-  const handleFavoriteClick = (e) => {
-    e.stopPropagation()
-    setIsFavorited(!isFavorited)
-    onAddToFavorites?.({
-      ...product,
-      isFavorited: !isFavorited
-    })
-  }
 
   const handleCardClick = () => {
     setShowDrawer(true)
@@ -63,19 +53,19 @@ export default function ProductCard({ product, onAddToCart, onAddToFavorites }) 
         </div>
 
         {/* Product Info */}
-        <div className="px-2">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="font-heading text-lg font-bold text-on-background transition-colors duration-300 group-hover:text-accent-dark leading-tight line-clamp-1">
+        <div className="px-1 md:px-2">
+          <div className="flex justify-between items-start mb-1 md:mb-2 gap-2">
+            <h3 className="font-heading text-xs sm:text-sm md:text-lg font-bold text-on-background transition-colors duration-300 group-hover:text-accent-dark leading-tight line-clamp-2 md:line-clamp-1">
               {product.title}
             </h3>
-            <span className="font-heading text-[10px] text-accent/60 font-bold uppercase tracking-widest">Premium</span>
+            <span className="hidden sm:block font-heading text-[10px] text-accent/60 font-bold uppercase tracking-widest shrink-0">Premium</span>
           </div>
           
-          <div className="flex justify-between items-center">
-            <span className="font-heading text-xl font-black text-primary">
+          <div className="flex justify-between items-center mt-1 md:mt-0">
+            <span className="font-heading text-sm sm:text-base md:text-xl font-black text-primary">
               {String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`}
             </span>
-            <div className="flex gap-1">
+            <div className="hidden sm:flex gap-1">
                {[1,2,3,4,5].map(i => (
                  <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                ))}

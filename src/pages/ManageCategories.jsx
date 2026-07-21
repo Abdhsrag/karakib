@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import Modal from '../components/Modal';
 import { useToast } from '../components/Toast';
@@ -14,10 +14,6 @@ const ManageCategories = () => {
   const showToast = useToast();
   const confirm = useConfirm();
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
   const fetchCategories = async () => {
     setLoading(true);
     try {
@@ -30,6 +26,13 @@ const ManageCategories = () => {
       setLoading(false);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const handleOpenModal = (category = null) => {
     if (category) {

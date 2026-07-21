@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as adminProductService from '../api/services/adminProductService';
 import * as adminCategoryService from '../api/services/adminCategoryService';
 import Modal from '../components/Modal';
@@ -26,10 +26,6 @@ const ManageProducts = () => {
   const showToast = useToast();
   const confirm = useConfirm();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -46,6 +42,13 @@ const ManageProducts = () => {
       setLoading(false);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const handleOpenModal = (prod = null) => {
     if (prod) {

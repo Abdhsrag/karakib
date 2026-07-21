@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as adminCouponService from '../api/services/adminCouponService';
 import Modal from '../components/Modal';
 import { useToast } from '../components/Toast';
@@ -22,10 +22,6 @@ const ManageCoupons = () => {
   const showToast = useToast();
   const confirm = useConfirm();
 
-  useEffect(() => {
-    fetchCoupons();
-  }, []);
-
   const fetchCoupons = async () => {
     setLoading(true);
     try {
@@ -38,6 +34,13 @@ const ManageCoupons = () => {
       setLoading(false);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    fetchCoupons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const handleOpenModal = (coupon = null) => {
     if (coupon) {

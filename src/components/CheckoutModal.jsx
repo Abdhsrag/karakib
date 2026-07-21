@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { createOrder } from '../api/services/orderService';
 import { parseApiError } from '../utils/errorParser';

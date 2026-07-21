@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as adminAuthService from '../api/services/adminAuthService';
-import { useNavigate } from 'react-router-dom';
+
 
 const ManageAdmins = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import headerImage from '../../assets/images/karakeb_header.jpg';
 
 import 'swiper/css';
