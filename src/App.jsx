@@ -20,6 +20,8 @@ import ManageCoupons from './pages/ManageCoupons';
 import ManageOrders from './pages/ManageOrders';
 import ManageAdmins from './pages/ManageAdmins';
 
+import NotFoundPage from './pages/NotFoundPage';
+
 export default function App() {
   return (
     <AuthProvider>
@@ -52,8 +54,8 @@ export default function App() {
             <Route path="admins" element={<ManageAdmins />} />
           </Route>
 
-          {/* 404 Redirect */}
-          <Route path="*" element={<HomePage />} />
+          {/* 404 Page */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
