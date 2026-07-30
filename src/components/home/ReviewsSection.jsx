@@ -4,21 +4,21 @@ const reviews = [
     stars: 5,
     text: '"تجربة تسوق رائعة، القطع وصلتني مغلفة بعناية فائقة والجودة تتحدث عن نفسها. أضافت لمسة سحرية لغرفة الجلوس."',
     textEn: '"Wonderful shopping experience, pieces arrived carefully packed and quality speaks for itself. Added a magical touch to my living room."',
-    author: 'سارة العتيبي',
+    author: 'أحمد الشرافي',
   },
   {
     id: 2,
     stars: 5,
     text: '"من أفضل المتاجر للتحف والانتيكات. خدمة العملاء ممتازة والمنتجات مطابقة تماماً للصور في الموقع."',
     textEn: '"One of the best stores for antiques. Excellent customer service and products are exactly like the photos on the site."',
-    author: 'محمد الدوسري',
+    author: 'د. محمد الشافعي',
   },
   {
     id: 3,
     stars: 5,
     text: '"الثريا التي طلبتها كانت تحفة فنية حقيقية. التوصيل كان سريعاً والتركيب سهل. أنصح به بشدة لكل من يبحث عن التميز."',
     textEn: '"The chandelier I ordered was a true masterpiece. Delivery was fast and installation easy. Highly recommend for those seeking excellence."',
-    author: 'نورة السالم',
+    author: 'المهندسة ياسمين صبري',
   },
 ]
 

@@ -89,7 +89,7 @@ export default function Footer() {
               </div>
               <div className="bg-white/5 border border-white/10 p-5 rounded-2xl w-full max-w-[280px]">
                 <div className="flex items-center gap-3 mb-2">
-                   <span className="material-symbols-outlined text-secondary">support_agent</span>
+                   <i className="bi bi-headset text-secondary text-lg" />
                    <span className="text-sm font-bold">تحتاج مساعدة؟</span>
                 </div>
                 <p className="text-[11px] text-white/50">فريقنا متاح للرد على استفساراتكم عبر الواتساب على مدار الساعة.</p>
@@ -109,7 +109,7 @@ export default function Footer() {
                 rel="noopener noreferrer" 
                 className="flex items-start gap-3 text-white/60 hover:text-white transition-colors group"
               >
-                <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">location_on</span>
+                <i className="bi bi-geo-alt-fill text-secondary text-lg group-hover:scale-110 transition-transform" />
                 <p className="text-sm leading-relaxed">
                   مصر، محافظة أسيوط، قسم ثان أسيوط، شارع محمود رشوان<br />
                   Egypt, Assiut Gov., 2nd Assiut Dept., Mahmoud Rashwan St.
@@ -117,7 +117,7 @@ export default function Footer() {
               </a>
               <div className="w-full h-px bg-white/10" />
               <div className="flex items-center gap-3 text-secondary">
-                 <span className="material-symbols-outlined">verified</span>
+                 <i className="bi bi-patch-check-fill text-lg" />
                  <span className="text-xs font-black uppercase tracking-widest">Premium Quality Guaranteed</span>
               </div>
           </div>
@@ -132,7 +132,7 @@ export default function Footer() {
           
           <div className="flex items-center gap-3 group/nova text-sm font-bold uppercase tracking-widest" dir="ltr">
             <span className="opacity-60">Made with</span>
-            <span className="material-symbols-outlined text-lg text-red-500 animate-pulse">favorite</span>
+            <i className="bi bi-heart-fill text-sm text-red-500 animate-pulse" />
             <span className="opacity-60">by</span>
             <a 
               href="https://www.nova-solution.net/" 

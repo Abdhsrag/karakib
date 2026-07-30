@@ -49,7 +49,7 @@ function Sidebar({ isOpen, onClose }) {
             style={{ mixBlendMode: 'multiply' }}
           />
           <button onClick={onClose} className="text-primary p-2 hover:bg-primary/10 rounded-full transition-colors flex-shrink-0">
-            <span className="material-symbols-outlined text-2xl">close</span>
+            <i className="bi bi-x-lg text-xl" />
           </button>
         </div>
 
@@ -59,6 +59,12 @@ function Sidebar({ isOpen, onClose }) {
           </div>
           {allItems.map((item) => {
             const active = location.pathname === item.path;
+            const iconMap = {
+              home: 'bi bi-house-door',
+              category: 'bi bi-grid',
+              gavel: 'bi bi-file-earmark-text',
+              search: 'bi bi-search'
+            };
             return (
               <button
                 key={item.path}
@@ -67,9 +73,7 @@ function Sidebar({ isOpen, onClose }) {
                   }`}
               >
                 <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined text-[1.5rem]" style={{ fontVariationSettings: active ? "'FILL' 1" : undefined }}>
-                    {item.icon}
-                  </span>
+                  <i className={`${iconMap[item.icon] || 'bi bi-app'} text-xl`} />
                   <div className="flex flex-col items-start">
                     <span className="font-bold text-base leading-none">{item.label}</span>
                     <span className="text-[10px] opacity-60 uppercase tracking-tighter">{item.labelEn}</span>
@@ -113,7 +117,7 @@ function CartSidebar() {
             <span className="text-[10px] text-primary/50 uppercase tracking-widest">Shopping Cart</span>
           </div>
           <button onClick={closeCart} className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/10 text-primary transition-colors">
-            <span className="material-symbols-outlined">close</span>
+            <i className="bi bi-x-lg text-lg" />
           </button>
         </div>
 
@@ -121,7 +125,7 @@ function CartSidebar() {
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {cartItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-primary/20">
-              <span className="material-symbols-outlined text-8xl mb-4">shopping_bag</span>
+              <i className="bi bi-bag text-7xl mb-4" />
               <p className="text-xl font-bold">السلة فارغة</p>
               <span className="text-sm">Your cart is empty</span>
             </div>
@@ -139,7 +143,7 @@ function CartSidebar() {
                   <div className="flex justify-between items-start mb-1">
                     <h3 className="font-bold text-on-background text-base line-clamp-2">{item.title || item.name}</h3>
                     <button onClick={() => removeFromCart(item.id)} className="text-error/40 hover:text-error transition-colors">
-                      <span className="material-symbols-outlined text-xl">delete</span>
+                      <i className="bi bi-trash text-lg" />
                     </button>
                   </div>
                   <p className="font-black text-primary text-lg">{String(item.price).includes('ج.م') ? item.price : `${item.price} ج.م`}</p>
@@ -147,11 +151,11 @@ function CartSidebar() {
                   <div className="flex items-center gap-4 mt-auto">
                     <div className="flex items-center border border-surface-container rounded-full p-1 bg-surface-container/50">
                       <button onClick={() => updateQuantity(item.id, -1)} className="w-7 h-7 rounded-full bg-white flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm">
-                        <span className="material-symbols-outlined text-xs">remove</span>
+                        <i className="bi bi-dash-lg text-xs" />
                       </button>
                       <span className="w-10 text-center font-bold text-sm">{item.quantity}</span>
                       <button onClick={() => updateQuantity(item.id, 1)} className="w-7 h-7 rounded-full bg-white flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm">
-                        <span className="material-symbols-outlined text-xs">add</span>
+                        <i className="bi bi-plus-lg text-xs" />
                       </button>
                     </div>
                   </div>
@@ -166,7 +170,7 @@ function CartSidebar() {
           <div className="p-6 bg-white border-t border-surface-container shadow-[0_-20px_50px_rgba(0,0,0,0.05)]">
             <div className="mb-6 p-4 rounded-2xl bg-primary/5 border border-primary/10">
               <div className="flex items-center gap-2 mb-3">
-                <span className="material-symbols-outlined text-primary text-xl">local_offer</span>
+                <i className="bi bi-tag-fill text-primary text-lg" />
                 <span className="font-bold text-sm text-primary uppercase tracking-wider">هل لديك كوبون؟</span>
               </div>
               <div className="flex gap-2">
@@ -196,7 +200,7 @@ function CartSidebar() {
               }}
               className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg hover:bg-primary-hover transform active:scale-95 transition-all shadow-xl shadow-primary/20 flex justify-center items-center gap-3"
             >
-              <span className="material-symbols-outlined">payments</span>
+              <i className="bi bi-credit-card-2-front text-xl" />
               إتمام الطلب / Checkout
             </button>
           </div>
@@ -249,7 +253,7 @@ export default function Header() {
               onClick={() => setOpen(true)}
               className="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-surface-container text-primary hover:bg-primary/10 transition-all border border-surface-container-highest/50"
             >
-              <span className="material-symbols-outlined text-[1.5rem]">menu</span>
+              <i className="bi bi-list text-2xl" />
             </button>
 
             <nav className={`hidden lg:flex items-center gap-10 transition-opacity duration-300 ${showSearch ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -319,7 +323,7 @@ export default function Header() {
                   onClick={() => setShowSearch(!showSearch)}
                   className={`relative z-10 flex-shrink-0 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 ${showSearch ? 'text-primary' : 'text-on-background/50 hover:text-primary'}`}
                 >
-                  <span className="material-symbols-outlined text-[1.5rem]">{showSearch ? 'close' : 'search'}</span>
+                  <i className={`bi ${showSearch ? 'bi-x-lg text-lg' : 'bi-search text-lg'}`} />
                 </button>
                 <form onSubmit={handleSearchSubmit} className={`relative z-10 flex-1 flex items-center px-3 transition-opacity duration-300 ${showSearch ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                   <input
@@ -337,7 +341,7 @@ export default function Header() {
                 onClick={toggleCart}
                 className="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-primary text-white hover:bg-primary-hover hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary/20"
               >
-                <span className="material-symbols-outlined text-[1.5rem]">shopping_bag</span>
+                <i className="bi bi-bag text-lg" />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[1.5rem] h-6 px-1 rounded-full bg-gradient-to-br from-accent-dark via-accent to-accent-light text-white text-[10px] font-black border-2 border-white shadow-xl">
                     {cartCount}

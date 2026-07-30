@@ -54,7 +54,7 @@ export default function SearchPage() {
                 onSubmit={handleSearch}
                 className="relative flex items-center bg-white border-2 border-surface-container rounded-[2.5rem] p-1 pr-4 md:p-2 md:pr-6 shadow-2xl shadow-black/[0.03] transition-all duration-500"
               >
-                <span className="material-symbols-outlined text-primary/30 transition-colors text-xl md:text-3xl">search</span>
+                <i className="bi bi-search text-primary/30 text-lg md:text-2xl" />
                 <input
                   type="text"
                   value={localQuery}
@@ -68,7 +68,7 @@ export default function SearchPage() {
                     onClick={() => { setLocalQuery(''); navigate('/search'); }}
                     className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-primary/30 hover:text-primary transition-colors mr-1"
                   >
-                    <span className="material-symbols-outlined text-sm md:text-base">close</span>
+                    <i className="bi bi-x-lg text-sm md:text-base" />
                   </button>
                 )}
                 <button
@@ -118,14 +118,14 @@ export default function SearchPage() {
           ) : !query ? (
             <div className="text-center py-20 flex flex-col items-center opacity-40">
               <div className="w-32 h-32 rounded-[2.5rem] bg-accent/5 flex items-center justify-center mb-8 border border-accent/10">
-                <span className="material-symbols-outlined text-6xl text-accent">auto_awesome</span>
+                <i className="bi bi-stars text-5xl text-accent" />
               </div>
               <h2 className="text-2xl font-black text-on-background mb-2">ابدأ رحلة الاكتشاف</h2>
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-20 flex flex-col items-center animate-fade-in">
               <div className="w-32 h-32 rounded-[2.5rem] bg-surface-container flex items-center justify-center mb-8">
-                <span className="material-symbols-outlined text-6xl text-on-background/20">search_off</span>
+                <i className="bi bi-search text-5xl text-on-background/20" />
               </div>
               <h2 className="text-2xl font-black text-on-background mb-2">عذراً، لم نجد نتائج</h2>
             </div>

@@ -5,7 +5,17 @@ import { parsePrice } from '../utils/priceParser';
 
 export default function ProductDrawer({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);
+  const [copied, setCopied] = useState(false);
   const { addToCart } = useCart();
+
+  const handleCopyDetails = () => {
+    if (!product) return;
+    const priceText = String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`;
+    const details = `📌 ${product.title || product.name}\n💰 السعر: ${priceText}\n📝 الوصف: ${product.description || 'لا يوجد وصف متاح'}`;
+    navigator.clipboard.writeText(details);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   
   // Collect images dynamically (handles 2, 3, or more images if available)
   const images = (() => {
@@ -77,12 +87,26 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
             <h2 className="font-heading text-xl font-black text-primary line-clamp-1">{product.title || product.name}</h2>
             <span className="text-[10px] text-primary/50 uppercase tracking-widest">تفاصيل المنتج / Product Details</span>
           </div>
-          <button
-            onClick={onClose}
-            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/10 text-primary transition-all"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyDetails}
+              title="نسخ بيانات المنتج / Copy product details"
+              className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/10 text-primary transition-all relative"
+            >
+              <i className={`bi ${copied ? 'bi-check-lg text-xl' : 'bi-clipboard text-lg'}`} />
+              {copied && (
+                <span className="absolute -bottom-8 right-0 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-md whitespace-nowrap z-30">
+                  تم النسخ!
+                </span>
+              )}
+            </button>
+            <button
+              onClick={onClose}
+              className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/10 text-primary transition-all"
+            >
+              <i className="bi bi-x-lg text-lg" />
+            </button>
+          </div>
         </div>
 
         {/* Content */}
@@ -157,10 +181,10 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
 
             {/* Shipping Info Mini */}
             <div className="p-5 rounded-2xl border border-dashed border-primary/20 bg-primary/5 flex items-start gap-4">
-               <span className="material-symbols-outlined text-primary">local_shipping</span>
+               <i className="bi bi-truck text-primary text-2xl" />
                <div>
-                  <h4 className="font-bold text-sm text-primary">شحن سريع وآمن</h4>
-                  <p className="text-xs text-primary/70">توصيل خلال ٢-٤ أيام عمل لجميع المحافظات.</p>
+                  <h4 className="font-bold text-sm text-primary">شحن وتوصيل من معرض كراكيب بأسيوط</h4>
+                  <p className="text-xs text-primary/70">توصيل داخل أسيوط خلال ٢٤ ساعة (٣٠ ج.م للقطع الصغيرة)، وخارج أسيوط خلال ٤٨ ساعة (يبدأ من ٨٠ ج.م).</p>
                </div>
             </div>
           </div>
@@ -174,14 +198,14 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className="w-10 h-10 rounded-xl bg-white flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm"
               >
-                <span className="material-symbols-outlined text-sm">remove</span>
+                <i className="bi bi-dash-lg text-sm" />
               </button>
               <span className="w-14 text-center font-black text-xl">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="w-10 h-10 rounded-xl bg-white flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm"
               >
-                <span className="material-symbols-outlined text-sm">add</span>
+                <i className="bi bi-plus-lg text-sm" />
               </button>
             </div>
             
@@ -197,7 +221,7 @@ export default function ProductDrawer({ product, isOpen, onClose }) {
             onClick={handleAddToCart}
             className="w-full py-5 bg-primary text-white rounded-[2rem] font-bold text-xl hover:bg-primary-hover transform active:scale-95 transition-all shadow-2xl shadow-primary/30 flex justify-center items-center gap-4"
           >
-            <span className="material-symbols-outlined">add_shopping_cart</span>
+            <i className="bi bi-cart-plus text-2xl" />
             إضافة للسلة / Add to Cart
           </button>
         </div>

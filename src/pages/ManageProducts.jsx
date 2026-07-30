@@ -81,6 +81,23 @@ const ManageProducts = () => {
     setIsModalOpen(true);
   };
 
+  const handleDuplicate = (prod) => {
+    setEditingProd(null);
+    setFormData({
+      subcategory_id: prod.subcategory_id,
+      name: `${prod.name} (نسخة)`,
+      title: prod.title,
+      price: prod.price,
+      description: prod.description || '',
+      stock: prod.stock,
+      is_active: true,
+      main_image: null,
+      sec_image: null
+    });
+    setIsModalOpen(true);
+    showToast('تم نسخ بيانات المنتج إلى النموذج / Product data copied to form', 'info');
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingProd(null);
@@ -210,12 +227,21 @@ const ManageProducts = () => {
                     <div className="flex justify-start gap-2">
                       <button 
                         onClick={() => handleOpenModal(prod)} 
+                        title="تعديل / Edit"
                         className="w-10 h-10 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-sm"
                       >
                         <span className="material-symbols-outlined text-lg">edit</span>
                       </button>
                       <button 
+                        onClick={() => handleDuplicate(prod)} 
+                        title="نسخ المنتج / Copy Product"
+                        className="w-10 h-10 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-sm"
+                      >
+                        <span className="material-symbols-outlined text-lg">content_copy</span>
+                      </button>
+                      <button 
                         onClick={() => handleDelete(prod.id)} 
+                        title="حذف / Delete"
                         className="w-10 h-10 rounded-xl bg-error/5 text-error hover:bg-error hover:text-white transition-all flex items-center justify-center shadow-sm"
                       >
                         <span className="material-symbols-outlined text-lg">delete</span>

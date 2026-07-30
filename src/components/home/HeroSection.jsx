@@ -1,35 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
 import headerImage from '../../assets/images/karakeb_header.jpg';
-
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-
-const promos = [
-  {
-    title: 'أفضل العروض',
-    titleEn: 'Best Offers',
-    desc: 'خصم ٢٠٪ على جميع التحف الأندلسية',
-    descEn: '20% Off All Andalusian Antiques',
-    color: 'bg-primary'
-  },
-  {
-    title: 'توصيل مجاني',
-    titleEn: 'Free Delivery',
-    desc: 'على جميع الطلبات بأكثر من ١٠٠٠ ج.م',
-    descEn: 'On all orders over 1000 EGP',
-    color: 'bg-secondary'
-  },
-  {
-    title: 'وصل حديثاً',
-    titleEn: 'New Arrivals',
-    desc: 'اكتشف مجموعة الربيع الجديدة من الفازات',
-    descEn: 'Discover our new Spring Vases collection',
-    color: 'bg-primary-hover'
-  }
-]
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -83,42 +53,6 @@ export default function HeroSection() {
               src={headerImage}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
-            
-            {/* Promotional Slider Overlay */}
-            <div className="absolute bottom-6 left-6 right-6 z-20">
-              <Swiper
-                modules={[Autoplay, EffectFade]}
-                effect="fade"
-                autoplay={{ delay: 4000 }}
-                loop={true}
-                className="w-full"
-              >
-                {promos.map((promo, idx) => (
-                  <SwiperSlide key={idx}>
-                    <div className="bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-2xl flex flex-col gap-1">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-primary font-black text-sm uppercase tracking-wider">{promo.title}</span>
-                        <span className="text-[10px] text-on-background/40 font-bold uppercase tracking-widest">{promo.titleEn}</span>
-                      </div>
-                      <h4 className="text-on-background font-bold text-lg md:text-xl leading-tight">{promo.desc}</h4>
-                      <p className="text-on-background/60 text-xs italic mb-3">{promo.descEn}</p>
-                      <div className="flex items-center justify-between border-t border-primary/10 pt-3">
-                        <div className="flex items-center gap-2">
-                           <span className="material-symbols-outlined text-primary text-sm">local_offer</span>
-                           <span className="font-black text-primary tracking-widest text-xs uppercase">العرض متاح الآن / Available Now</span>
-                        </div>
-                        <button 
-                          onClick={() => navigate('/categories')}
-                          className="text-[10px] bg-primary text-white px-4 py-1.5 rounded-full font-bold uppercase tracking-tighter hover:bg-primary-hover transition-colors"
-                        >
-                          تسوّق / Shop
-                        </button>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
           </div>
           
           {/* Decorative Floaters */}

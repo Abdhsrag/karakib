@@ -5,13 +5,16 @@ export default function ProductCard({ product, onAddToCart }) {
   const [showDrawer, setShowDrawer] = useState(false)
 
   const handleCardClick = () => {
+    if (window.getSelection && window.getSelection().toString().trim().length > 0) {
+      return;
+    }
     setShowDrawer(true)
   }
 
   return (
     <>
       <div
-        className="group cursor-pointer flex flex-col transition-all duration-500"
+        className="group cursor-pointer flex flex-col transition-all duration-500 select-text"
         onClick={handleCardClick}
       >
         {/* Image Container */}
@@ -27,9 +30,9 @@ export default function ProductCard({ product, onAddToCart }) {
 
           {/* Premium Hover Overlay */}
           <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-             <div className="w-16 h-16 rounded-full bg-white shadow-2xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
-                <span className="material-symbols-outlined text-primary text-3xl">add</span>
-             </div>
+            <div className="w-16 h-16 rounded-full bg-white shadow-2xl flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
+              <i className="bi bi-plus-lg text-primary text-2xl" />
+            </div>
           </div>
 
           {/* Floating Actions */}
@@ -40,9 +43,7 @@ export default function ProductCard({ product, onAddToCart }) {
             }}
             className="absolute top-5 right-5 z-20 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md border border-white/40 flex items-center justify-center text-primary shadow-xl transition-all duration-300 hover:bg-primary hover:text-white hover:scale-110 active:scale-95"
           >
-            <span className="material-symbols-outlined text-2xl">
-              shopping_basket
-            </span>
+            <i className="bi bi-bag-plus text-xl" />
           </button>
 
           {product.isNew && (
@@ -60,15 +61,15 @@ export default function ProductCard({ product, onAddToCart }) {
             </h3>
             <span className="hidden sm:block font-heading text-[10px] text-accent/60 font-bold uppercase tracking-widest shrink-0">Premium</span>
           </div>
-          
+
           <div className="flex justify-between items-center mt-1 md:mt-0">
             <span className="font-heading text-sm sm:text-base md:text-xl font-black text-primary">
               {String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`}
             </span>
             <div className="hidden sm:flex gap-1">
-               {[1,2,3,4,5].map(i => (
-                 <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-               ))}
+              {[1, 2, 3, 4, 5].map(i => (
+                <i key={i} className="bi bi-star-fill text-[10px] text-accent-medium" />
+              ))}
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
 const navItems = [
-  { label: 'الرئيسية', icon: 'home', active: true, fill: true },
-  { label: 'الأقسام', icon: 'category', active: false, fill: false },
-  { label: 'المفضلة', icon: 'favorite', active: false, fill: false },
-  { label: 'السلة', icon: 'shopping_bag', active: false, fill: false },
-  { label: 'حسابي', icon: 'person', active: false, fill: false },
+  { label: 'الرئيسية', bsIcon: 'bi bi-house-door-fill', active: true },
+  { label: 'الأقسام', bsIcon: 'bi bi-grid', active: false },
+  { label: 'المفضلة', bsIcon: 'bi bi-heart', active: false },
+  { label: 'السلة', bsIcon: 'bi bi-bag', active: false },
+  { label: 'حسابي', bsIcon: 'bi bi-person', active: false },
 ]
 
-function NavItem({ label, icon, active, fill }) {
+function NavItem({ label, bsIcon, active }) {
   return (
     <a
       className={`flex flex-col items-center justify-center w-1/5 hover:bg-rose-50/30 transition-transform duration-300 ease-out rounded-lg py-1 ${
@@ -16,12 +16,7 @@ function NavItem({ label, icon, active, fill }) {
       }`}
       href="#"
     >
-      <span
-        className="material-symbols-outlined mb-1"
-        style={fill ? { fontVariationSettings: "'FILL' 1" } : undefined}
-      >
-        {icon}
-      </span>
+      <i className={`${bsIcon} text-xl mb-1`} />
       <span className="text-[10px] font-serif">{label}</span>
     </a>
   )

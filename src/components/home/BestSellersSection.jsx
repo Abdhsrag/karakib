@@ -80,9 +80,9 @@ function ProductCard({ product, onClick }) {
             {product.price}
           </span>
           <div className="flex gap-1">
-             {[1,2,3,4,5].map(i => (
-               <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-             ))}
+            {[1, 2, 3, 4, 5].map(i => (
+              <span key={i} className="material-symbols-outlined text-[10px] text-accent-medium" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+            ))}
           </div>
         </div>
       </div>
@@ -100,8 +100,8 @@ export default function BestSellersSection() {
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <div className="flex flex-col items-start text-right">
           <div className="flex items-center gap-2 mb-4">
-             <span className="w-12 h-[2px] bg-accent-medium rounded-full" />
-             <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">الأكثر مبيعاً / Best Sellers</span>
+            <span className="w-12 h-[2px] bg-accent-medium rounded-full" />
+            <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">الأكثر مبيعاً / Best Sellers</span>
           </div>
           <h2 className="font-heading text-3xl md:text-6xl font-black text-on-background leading-tight">
             اختيارات <span className="bg-gradient-to-r from-accent-dark to-accent-light bg-clip-text text-transparent">كراكيب</span> المميزة
@@ -117,9 +117,9 @@ export default function BestSellersSection() {
         spaceBetween={40}
         slidesPerView={1}
         autoplay={{ delay: 3500 }}
-        pagination={{ 
+        pagination={{
           clickable: true,
-          dynamicBullets: true 
+          dynamicBullets: true
         }}
         navigation={true}
         breakpoints={{

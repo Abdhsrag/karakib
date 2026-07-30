@@ -10,11 +10,21 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(initialProduct?.image || initialProduct?.main_img_url)
   const [quantity, setQuantity] = useState(1)
+  const [copied, setCopied] = useState(false)
   
   // View state: 'details' or 'order'
   const [view, setView] = useState('details')
   
   const { addToCart } = useCart()
+
+  const handleCopyDetails = () => {
+    if (!product) return;
+    const priceText = String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`;
+    const details = `📌 ${product.title || product.name}\n💰 السعر: ${priceText}\n📝 الوصف: ${product.description || 'لا يوجد وصف متاح'}`;
+    navigator.clipboard.writeText(details);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -73,13 +83,27 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
     <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center p-0 md:p-6 bg-transparent backdrop-blur-md">
       <div className="relative w-full max-w-5xl bg-white rounded-t-3xl md:rounded-3xl shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col md:flex-row max-h-[92vh] md:max-h-[90vh] md:min-h-[600px] border border-surface-container animate-in slide-in-from-bottom-10 md:zoom-in-95 duration-500">
 
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-surface-container/80 backdrop-blur-sm text-on-surface hover:bg-primary hover:text-white transition-colors duration-300 shadow-md"
-        >
-          <span className="material-symbols-outlined">close</span>
-        </button>
+        {/* Header Action Buttons */}
+        <div className="absolute top-4 right-4 z-[60] flex items-center gap-2">
+          <button
+            onClick={handleCopyDetails}
+            title="نسخ بيانات المنتج / Copy product details"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container/80 backdrop-blur-sm text-on-surface hover:bg-primary hover:text-white transition-colors duration-300 shadow-md relative"
+          >
+            <i className={`bi ${copied ? 'bi-check-lg text-lg' : 'bi-clipboard text-base'}`} />
+            {copied && (
+              <span className="absolute -bottom-8 right-0 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md whitespace-nowrap">
+                تم النسخ!
+              </span>
+            )}
+          </button>
+          <button
+            onClick={onClose}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container/80 backdrop-blur-sm text-on-surface hover:bg-primary hover:text-white transition-colors duration-300 shadow-md"
+          >
+            <i className="bi bi-x-lg text-base" />
+          </button>
+        </div>
 
         {/* Image Section */}
         <div className="w-full md:w-1/2 relative bg-surface-container-highest flex flex-col h-[35vh] md:h-auto flex-shrink-0">
@@ -146,23 +170,21 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                     >
-                      <span className="material-symbols-outlined text-sm">remove</span>
+                      <i className="bi bi-dash-lg text-xs" />
                     </button>
                     <span className="w-12 text-center text-body-rg font-semibold text-on-surface text-sm md:text-base">{quantity}</span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
                       className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                     >
-                      <span className="material-symbols-outlined text-sm">add</span>
+                      <i className="bi bi-plus-lg text-xs" />
                     </button>
                   </div>
                 </div>
 
                 {/* Availability */}
                 <div className="flex items-center gap-2 text-secondary bg-secondary-container/20 px-3 py-2 rounded-lg w-fit">
-                  <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>
-                    check_circle
-                  </span>
+                  <i className="bi bi-check-circle-fill text-sm" />
                   <span className="text-xs font-semibold">
                     {(product.stock > 0 || product.inStock) ? `متوفر في المخزون` : 'متوفر'}
                   </span>
@@ -178,7 +200,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
                   }}
                   className="w-full bg-primary text-white text-title-sm font-title-sm py-3.5 md:py-4 rounded-lg hover:bg-inverse-primary transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_5px_15px_-5px_rgba(196,122,44,0.4)]"
                 >
-                  <span className="material-symbols-outlined">shopping_bag</span>
+                  <i className="bi bi-bag-plus text-lg" />
                   إضافة إلى السلة
                 </button>
 
@@ -186,7 +208,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
                   onClick={() => setView('order')}
                   className="w-full bg-surface-container-low text-on-surface border border-outline-variant text-body-rg font-body-rg py-3.5 md:py-4 rounded-lg hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  <span className="material-symbols-outlined">flash_on</span>
+                  <i className="bi bi-lightning-charge-fill text-lg" />
                   طلب مباشر سريع
                 </button>
               </div>
@@ -196,7 +218,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
             <div ref={orderContentRef} className="flex-1 flex flex-col h-full">
               <div className="flex items-center gap-3 mb-6">
                 <button onClick={() => setView('details')} className="text-on-surface-variant hover:text-primary flex items-center justify-center">
-                  <span className="material-symbols-outlined rtl:rotate-180">arrow_back</span>
+                  <i className="bi bi-arrow-right text-lg" />
                 </button>
                 <h2 className="text-lg md:text-xl font-bold text-on-surface">طلب مباشر</h2>
               </div>
@@ -204,7 +226,7 @@ export default function ProductDetailModal({ product: initialProduct, onClose })
               {orderStatus === 'success' ? (
                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4 py-8">
                   <div className="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center text-white">
-                    <span className="material-symbols-outlined text-3xl">check</span>
+                    <i className="bi bi-check-lg text-3xl" />
                   </div>
                   <h3 className="text-lg text-on-surface font-bold">تم إرسال طلبك بنجاح!</h3>
                   <p className="text-on-surface-variant text-sm">سنتواصل معك قريباً لتأكيد الطلب.</p>

@@ -205,8 +205,8 @@ export default function TermsPage({ currentPage, onNavigate }) {
               />
               <InfoCard
                 icon="public"
-                title="مناطق التوصيل"
-                text="نوفر خدمة الشحن لجميع مناطق المملكة العربية السعودية. قد تستغرق بعض المناطق النائية وقتاً إضافياً للتوصيل."
+                title="مناطق التوصيل والشحن"
+                text="نوفر التوصيل السريع داخل مدينة ومحافظة أسيوط، إلى جانب الشحن لجميع محافظات جمهورية مصر العربية (القاهرة، الإسكندرية، وجه بحري، ومدن الصعيد)."
               />
             </div>
 
@@ -217,26 +217,26 @@ export default function TermsPage({ currentPage, onNavigate }) {
               <table className="w-full border-collapse text-right">
                 <thead>
                   <tr className="bg-primary/5 text-on-background">
-                    <th className="p-4 font-inherit text-lg font-bold">طريقة الشحن</th>
+                    <th className="p-4 font-inherit text-lg font-bold">طريقة الشحن / التوصيل</th>
                     <th className="p-4 font-inherit text-lg font-bold">المدة المتوقعة</th>
                     <th className="p-4 font-inherit text-lg font-bold">التكلفة</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-surface-container text-on-background/80 hover:bg-white transition-colors">
-                    <td className="p-4">شحن عادي</td>
-                    <td className="p-4">3-5 أيام عمل</td>
-                    <td className="p-4 font-bold">35 ج.م</td>
+                    <td className="p-4 font-bold">استلام من فرع أسيوط (شارع محمود رشوان)</td>
+                    <td className="p-4">نفس اليوم / فوراً</td>
+                    <td className="p-4 font-bold text-secondary">مجاناً</td>
                   </tr>
                   <tr className="border-b border-surface-container text-on-background/80 hover:bg-white transition-colors">
-                    <td className="p-4">شحن سريع</td>
-                    <td className="p-4">1-2 أيام عمل</td>
-                    <td className="p-4 font-bold">75 ج.م</td>
+                    <td className="p-4 font-bold">توصيل داخل أسيوط</td>
+                    <td className="p-4 font-bold">خلال 24 ساعة</td>
+                    <td className="p-4 font-bold">30 ج.م للقطع الصغيرة (وفي الحالات الأخرى يتم إبلاغ العميل بتكلفة الشحن)</td>
                   </tr>
-                  <tr className="bg-primary/10 text-primary">
-                    <td className="p-4 font-bold">شحن مجاني</td>
-                    <td className="p-4">للطلبات فوق 500 ج.م</td>
-                    <td className="p-4 font-black">مجاناً</td>
+                  <tr className="border-b border-surface-container text-on-background/80 hover:bg-white transition-colors">
+                    <td className="p-4 font-bold">شحن خارج أسيوط (كافة المحافظات)</td>
+                    <td className="p-4 font-bold">خلال 48 ساعة</td>
+                    <td className="p-4 font-bold">يبدأ من 80 ج.م (ويتم إبلاغ العميل بتكلفة الشحن)</td>
                   </tr>
                 </tbody>
               </table>

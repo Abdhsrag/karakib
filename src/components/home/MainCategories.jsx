@@ -106,7 +106,7 @@ export default function MainCategories() {
       <div className="text-center mb-20 space-y-4">
         <div className="flex items-center justify-center gap-3">
            <span className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-              <span className="material-symbols-outlined text-sm">auto_awesome</span>
+              <i className="bi bi-stars text-sm" />
            </span>
            <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">تصفح الفئات / Browse Categories</span>
         </div>

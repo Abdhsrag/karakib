@@ -1,7 +1,7 @@
 const menuItems = [
-  { icon: 'home', label: 'الرئيسية', page: 'home' },
-  { icon: 'category', label: 'الأقسام', page: 'categories' },
-  { icon: 'gavel', label: 'الشروط والأحكام', page: 'terms' },
+  { bsIcon: 'bi bi-house-door', label: 'الرئيسية', page: 'home' },
+  { bsIcon: 'bi bi-grid', label: 'الأقسام', page: 'categories' },
+  { bsIcon: 'bi bi-file-earmark-text', label: 'الشروط والأحكام', page: 'terms' },
 ]
 
 export default function AppSidebar({ isOpen, onClose, currentPage, onNavigate }) {
@@ -72,7 +72,7 @@ export default function AppSidebar({ isOpen, onClose, currentPage, onNavigate })
             onMouseEnter={(e) => (e.currentTarget.style.color = '#6B4F3A')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#78716c')}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>close</span>
+            <i className="bi bi-x-lg text-xl" />
           </button>
         </div>
 
@@ -117,15 +117,7 @@ export default function AppSidebar({ isOpen, onClose, currentPage, onNavigate })
                   }
                 }}
               >
-                <span
-                  className="material-symbols-outlined"
-                  style={{
-                    fontSize: '22px',
-                    fontVariationSettings: isActive ? "'FILL' 1" : undefined,
-                  }}
-                >
-                  {item.icon}
-                </span>
+                <i className={`${item.bsIcon} text-xl`} />
                 {item.label}
               </button>
             )
