@@ -2,45 +2,11 @@ import { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import ProductDrawer from '../ProductDrawer'
+import { useRandomCategoryProducts } from '../../hooks/useProducts'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-
-const mockProducts = [
-  {
-    id: 1,
-    title: 'صندوق مجوهرات أندلسي',
-    price: '٣٥٠ ج.م',
-    image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600&h=750&fit=crop&q=80',
-    description: 'صندوق مجوهرات خشبي منحوت يدوياً بتفاصيل أندلسية عريقة.',
-    isNew: true,
-  },
-  {
-    id: 2,
-    title: 'مزهرية خزف ملكية',
-    price: '٤٢٠ ج.م',
-    image: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=600&h=750&fit=crop&q=80',
-    description: 'مزهرية من الخزف الفاخر مزينة بنقوش ملكية مميزة.',
-    isNew: true,
-  },
-  {
-    id: 3,
-    title: 'مصباح نحاسي كلاسيكي',
-    price: '٨٩٠ ج.م',
-    image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&h=750&fit=crop&q=80',
-    description: 'مصباح نحاسي بتصميم كلاسيكي يضفي لمسة دافئة.',
-  },
-  {
-    id: 4,
-    title: 'ثريا زجاجية فاخرة',
-    price: '١٢٥٠ ج.م',
-    image: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=600&h=750&fit=crop&q=80',
-    description: 'ثريا من الزجاج الكريستالي الفاخر لإضاءة مبهرة.',
-  },
-]
-
-const products = import.meta.env.VITE_USE_MOCK_DATA === 'true' ? mockProducts : [];
 
 function ProductCard({ product, onClick }) {
   return (
@@ -64,7 +30,11 @@ function ProductCard({ product, onClick }) {
           </div>
         </div>
 
-        {product.isNew && (
+        {product.categoryName ? (
+          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-light text-white text-[10px] font-black shadow-lg uppercase tracking-widest border border-white/20">
+            {product.categoryName}
+          </div>
+        ) : product.isNew && (
           <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-light text-white text-[10px] font-black shadow-lg uppercase tracking-widest border border-white/20">
             جديد / New
           </div>
@@ -72,12 +42,12 @@ function ProductCard({ product, onClick }) {
       </div>
 
       <div className="px-2 text-center">
-        <h3 className="font-heading text-xl font-bold text-on-background group-hover:text-accent transition-colors mb-2">
+        <h3 className="font-heading text-xl font-bold text-on-background group-hover:text-accent transition-colors mb-2 line-clamp-1">
           {product.title}
         </h3>
         <div className="flex flex-col items-center gap-1">
           <span className="font-heading text-2xl font-black text-primary">
-            {product.price}
+            {String(product.price).includes('ج.م') ? product.price : `${product.price} ج.م`}
           </span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map(i => (
@@ -92,8 +62,19 @@ function ProductCard({ product, onClick }) {
 
 export default function BestSellersSection() {
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const { products, loading } = useRandomCategoryProducts(4)
 
-  if (products.length === 0) return null;
+  if (loading) {
+    return (
+      <section className="py-12 md:py-24 px-5 mx-auto max-w-7xl">
+        <div className="flex justify-center items-center h-64 text-primary font-bold text-lg">
+          جاري تحميل المنتجات المميزة...
+        </div>
+      </section>
+    )
+  }
+
+  if (!products || products.length === 0) return null;
 
   return (
     <section className="py-12 md:py-24 px-5 mx-auto max-w-7xl">
@@ -101,14 +82,14 @@ export default function BestSellersSection() {
         <div className="flex flex-col items-start text-right">
           <div className="flex items-center gap-2 mb-4">
             <span className="w-12 h-[2px] bg-accent-medium rounded-full" />
-            <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">الأكثر مبيعاً / Best Sellers</span>
+            <span className="font-bold text-accent-dark text-sm uppercase tracking-widest">تنوع التشكيلة / Featured Collection</span>
           </div>
           <h2 className="font-heading text-3xl md:text-6xl font-black text-on-background leading-tight">
             اختيارات <span className="bg-gradient-to-r from-accent-dark to-accent-light bg-clip-text text-transparent">كراكيب</span> المميزة
           </h2>
         </div>
         <p className="text-on-background/50 font-body text-sm md:text-lg max-w-md text-right">
-          اكتشف القطع الأكثر طلباً التي نالت إعجاب عملائنا بفضل جودتها وتصاميمها الفريدة.
+          منتجات مميزة ومختارة عشوائياً من أقسامنا المختلفة لتكتشف تشكيلات كراكيب المتميزة.
         </p>
       </div>
 

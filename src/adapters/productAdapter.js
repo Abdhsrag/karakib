@@ -6,6 +6,7 @@ export const adaptProduct = (product) => {
     sec_image: product.sec_img_url || product.sec_image || '',
     description: product.description || product.desc || '',
     price: product.price || 0,
+    categoryName: product.categoryName || '',
     original: product
   };
 };

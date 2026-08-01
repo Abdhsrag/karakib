@@ -83,3 +83,59 @@ export const searchProducts = async (query) => {
     return title.includes(lowerQuery) || desc.includes(lowerQuery);
   });
 };
+
+export const getRandomProductsFromCategories = async (count = 4) => {
+  const catRes = await apiClient.get('/user/categories');
+  const categories = catRes.data?.data || catRes.data || [];
+
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return [];
+  }
+
+  const categoryProductsMap = new Map();
+
+  await Promise.all(
+    categories.map(async (cat) => {
+      try {
+        const subRes = await apiClient.get(`/user/categories/${cat.id}/subcategories`);
+        const subs = subRes.data?.data || subRes.data || [];
+        if (!Array.isArray(subs) || subs.length === 0) return;
+
+        const prodArrays = await Promise.all(
+          subs.map(async (sub) => {
+            try {
+              const pRes = await apiClient.get(`/user/subcategories/${sub.id}/products`);
+              return pRes.data?.data || pRes.data || [];
+            } catch (err) {
+              return [];
+            }
+          })
+        );
+
+        const catProds = prodArrays.flat();
+        if (catProds.length > 0) {
+          categoryProductsMap.set(cat.id, { category: cat, products: catProds });
+        }
+      } catch (err) {
+        // Ignore categories with failed requests
+      }
+    })
+  );
+
+  const validCategoryIds = Array.from(categoryProductsMap.keys());
+  if (validCategoryIds.length === 0) return [];
+
+  const shuffledCatIds = [...validCategoryIds].sort(() => 0.5 - Math.random());
+  const selectedCatIds = shuffledCatIds.slice(0, count);
+
+  const selectedProducts = selectedCatIds.map((catId) => {
+    const { category, products } = categoryProductsMap.get(catId);
+    const randomProd = products[Math.floor(Math.random() * products.length)];
+    return {
+      ...randomProd,
+      categoryName: category.name || category.title || ''
+    };
+  });
+
+  return selectedProducts;
+};

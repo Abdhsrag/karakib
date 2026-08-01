@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getProducts } from '../api/services/productService';
+import { getProducts, getRandomProductsFromCategories } from '../api/services/productService';
 import { adaptProducts } from '../adapters/productAdapter';
 
 export const useProducts = (subcategoryId) => {
@@ -33,4 +33,32 @@ export const useProducts = (subcategoryId) => {
   }, [fetchProducts]);
 
   return { products, loading, error, refetch: fetchProducts };
+};
+
+export const useRandomCategoryProducts = (count = 4) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchRandomProducts = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const rawProducts = await getRandomProductsFromCategories(count);
+      const adaptedData = adaptProducts(rawProducts);
+      setProducts(adaptedData);
+    } catch (err) {
+      console.error('Error fetching random category products:', err);
+      setError(err.parsedMessage || 'حدث خطأ أثناء جلب المنتجات');
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [count]);
+
+  useEffect(() => {
+    fetchRandomProducts();
+  }, [fetchRandomProducts]);
+
+  return { products, loading, error, refetch: fetchRandomProducts };
 };
